@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class Avatar(models.Model):
     user = models.OneToOneField(User)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
     
     attack = models.IntegerField(default= 10)
     deffence = models.IntegerField(default= 10)
@@ -22,6 +23,7 @@ class Item(models.Model):
     
     itemType = models.CharField(max_length=128, choices=ITEM_CHOICES, default= 'sword')
     name = models.CharField(max_length=128, unique = True)
+    picture = models.ImageField(upload_to='item_images', blank=True)
     
     attack = models.IntegerField(default= 10)
     deffence = models.IntegerField(default= 10)

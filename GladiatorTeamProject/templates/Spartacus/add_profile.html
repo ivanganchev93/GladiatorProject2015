@@ -1,0 +1,19 @@
+{% extends 'Spartacus/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Select photo{% endblock %}
+
+{% block body_block %}
+	        <h1>Select a gladiator photo</h1>
+
+        <form id="user_form" method="post" action="{% url 'add_profile' %}"
+                enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            {{ profile_form.as_p }}
+
+            <!-- Provide a button to click to submit the form. -->
+            <input type="submit" name="submit" value="submit" />
+        </form>
+{% endblock %}

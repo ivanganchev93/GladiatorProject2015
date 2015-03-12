@@ -5,7 +5,7 @@ from registration.backends.simple.views import RegistrationView
 
 class MyRegistrationView(RegistrationView):
     def get_success_url(self,request, user):
-        return '/Spartacus/'
+        return '/Spartacus/add_profile'
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
@@ -14,4 +14,14 @@ urlpatterns = patterns('',
     (r'^accounts/', include('registration.backends.simple.urls')),
 )
        
-urlpatterns += patterns('django.views.static', (r'^media/(?P<path>.*)','serve', {'document_root': settings.MEDIA_ROOT}), )
+if settings.DEBUG:
+    urlpatterns += patterns(
+        'django.views.static',
+        (r'^media/(?P<path>.*)',
+        'serve',
+        {'document_root': settings.MEDIA_ROOT}), )
+
+if not settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
