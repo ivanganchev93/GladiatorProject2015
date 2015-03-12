@@ -6,7 +6,6 @@ django.setup()
 
 from Spartacus.models import Item, Avatar,AvatarItem
 
-
 def populate():
     add_item(name= "Sword of destruction",
         itemType = "sword",
