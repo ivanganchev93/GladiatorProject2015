@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from Spartacus.forms import AvatarForm
 from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth.decorators import login_required
+from Spartacus.models import Avatar, AvatarItem, Item
 
 
 def index(request):
@@ -35,3 +37,17 @@ def add_profile(request):
 
     # Render the template depending on the context.
     return render(request, 'Spartacus/add_profile.html',   {'profile_form': profile_form} )
+
+    
+@login_required
+def avatar_view(request):
+    context_dict = {}
+    try:
+        avatar = Avatar.objects.get(user = request.user)
+        equiped_items = AvatarItem.objects.filter(avatar = avatar)
+        context_dict['avatar'] = avatar
+        context_dict['equiped_items'] = equiped_items
+    except:
+        print "Failed to retrieve avatar or his items"
+    return render(request, 'Spartacus/avatar_view.html', context_dict)
+    

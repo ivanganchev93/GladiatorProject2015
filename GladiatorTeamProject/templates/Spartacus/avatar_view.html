@@ -1,0 +1,11 @@
+{% extends 'Spartacus/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Avatar{% endblock %}
+    
+{% block body_block %}
+
+
+<p><img  src="{{ MEDIA_URL }}{{ avatar.picture }}" alt = "{{ user.username }}" class="img-responsive"/><br /><p />
+
+{% endblock %}
