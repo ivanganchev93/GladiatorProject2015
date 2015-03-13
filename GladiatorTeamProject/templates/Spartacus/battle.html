@@ -1,0 +1,13 @@
+{% extends 'Spartacus/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Battle{% endblock %}
+    
+{% block body_block %}
+Battle<br />
+
+{{you.user.username}} : {{you.strength}}<br />
+{{opponent.user.username}}: {{opponent.strength}}<br />
+
+
+{% endblock %}

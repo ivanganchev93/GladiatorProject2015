@@ -15,6 +15,7 @@
         <div>
           <ul>
             {% if user.is_authenticated %}
+                <li><a href="{% url 'market' %}">Market</a></li>
                 <li><a href="{% url 'arena' %}">Arena</a></li>
                 <li><a href="{% url 'avatar_view' %}">Avatar</a></li>
                 <li><a href="{% url 'auth_logout' %}?next=/Spartacus/">Logout</a></li>

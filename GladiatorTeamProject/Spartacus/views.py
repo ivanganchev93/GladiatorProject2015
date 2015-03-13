@@ -2,8 +2,17 @@ from django.shortcuts import render
 from Spartacus.forms import AvatarForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from Spartacus.models import Avatar, AvatarItem, Item
+from Spartacus.models import User, Avatar, AvatarItem, Item
 
+def fight(you, opponent):
+    strength = you.strength + 1
+    you.strength = strength
+    strength = opponent.strength + 1
+    opponent.strength = strength
+    you.save()
+    opponent.save()
+    
+    
 
 def index(request):
     context_dict = {'message': "SPARTACUS"}
@@ -44,9 +53,11 @@ def avatar_view(request):
     context_dict = {}
     try:
         avatar = Avatar.objects.get(user = request.user)
-        equiped_items = AvatarItem.objects.filter(avatar = avatar)
+        inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
+        equiped_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = True)
         context_dict['avatar'] = avatar
         context_dict['equiped_items'] = equiped_items
+        context_dict['inventory_items'] = inventory_items
     except:
         print "Query fail Avatar_view"
     return render(request, 'Spartacus/avatar_view.html', context_dict)
@@ -68,4 +79,33 @@ def arena(request):
     except:
         print "Query fail Arena"
     return render(request, 'Spartacus/arena.html', context_dict)
+    
+@login_required
+def battle(request, opponent):
+    context_dict = {}
+    try:
+        you = Avatar.objects.get(user = request.user)
+        opposing_user = User.objects.get(username = opponent)
+        opponent = Avatar.objects.get(user = opposing_user)
+        fight(you, opponent)
+        context_dict['you'] = you
+        context_dict['opponent'] = opponent
+    except:
+        return HttpResponseRedirect(request, 'Spartacus/arena/')
+        print "Query fail battle"
+    return render(request, 'Spartacus/battle.html', context_dict)
+    
+@login_required
+def market(request):
+    context_dict = {}
+    try:
+        items = Item.objects.order_by('-price')
+        context_dict['items'] = items
+    except:
+        print "Query fail market"
+    return render (request, 'Spartacus/market.html', context_dict)
+    
+    
+
+
     

@@ -1,0 +1,15 @@
+{% extends 'Spartacus/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Market{% endblock %}
+    
+{% block body_block %}
+    <ul>
+    {% for item in items %}
+        <li>{{ item.name }}</a><br/>
+        <img src = "{{item.picture.url}}" width = "200" height = "200"><br />
+         </li>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
