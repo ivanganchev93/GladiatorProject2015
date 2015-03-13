@@ -37,6 +37,16 @@ class AvatarItem(models.Model):
     avatar = models.ForeignKey(Avatar)
     
     equiped = models.BooleanField(default = False)
+
+    # override the save method to ensure only one item per type can be equiped
+    def save(self, *args, **kwargs):
+        items = Item.objects.filter(itemType = self.item.itemType)
+
+        if self.equiped:
+            for item in items:
+                AvatarItem.objects.filter(item = item, avatar = self.avatar,
+                    equiped=True).update(equiped=False)
+        super(AvatarItem, self).save(*args, **kwargs)
     
     def __unicode__(self):
         return self.item.name
