@@ -1,0 +1,12 @@
+{% extends 'Spartacus/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Avatar{% endblock %}
+    
+{% block body_block %}
+    <ul>
+    {% for opponent in opponents %}
+        <li>opponent.user.username : opponent.points</li>
+    {% endfor %}
+    </ul>>
+{% endblock %}

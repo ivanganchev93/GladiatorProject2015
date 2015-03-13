@@ -6,7 +6,7 @@ class AvatarAdmin(admin.ModelAdmin):
     list_display = ['user', 'attack', 'deffence','strength', 'agility']
     
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ['name', 'attack', 'deffence']
+    list_display = ['name','itemType', 'attack', 'deffence', 'price']
 
 class AvatarItemAdmin(admin.ModelAdmin):
     list_display = ['item', 'avatar', 'equiped']

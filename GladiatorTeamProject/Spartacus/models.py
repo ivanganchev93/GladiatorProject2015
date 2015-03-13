@@ -5,12 +5,18 @@ from django.contrib.auth.models import User
 class Avatar(models.Model):
     user = models.OneToOneField(User)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    
+
+    cash = models.IntegerField(default = 1000)
     attack = models.IntegerField(default= 10)
     deffence = models.IntegerField(default= 10)
 
     strength = models.IntegerField(default= 10)
     agility = models.IntegerField(default= 10)
+    intelligence = models.IntegerField(default = 10)
+
+    victories = models.IntegerField(default = 0)
+    points = models.IntegerField(default = 0) # for ranking...every time a gladiator fights get some amount of points
+    # that determines his position in the rankings
 
     def __unicode__(self):
         return self.user.username
@@ -20,7 +26,8 @@ class Item(models.Model):
     ('sword', 'sword'),
     ('shield', 'shield'),
     ('armor', 'armor'),)
-    
+
+    price = models.IntegerField(default = 0)
     itemType = models.CharField(max_length=128, choices=ITEM_CHOICES, default= 'sword')
     
     name = models.CharField(max_length=128, unique = True)
