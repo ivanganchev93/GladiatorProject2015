@@ -6,7 +6,7 @@
 {% block body_block %}
     <ul>
     {% for opponent in opponents %}
-        <li>opponent.user.username : opponent.points</li>
+        <li>{{ opponent.user.username }} : {{ opponent.points }}</li>
     {% endfor %}
-    </ul>>
+    </ul>
 {% endblock %}

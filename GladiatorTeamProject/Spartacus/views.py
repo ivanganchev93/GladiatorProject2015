@@ -48,6 +48,24 @@ def avatar_view(request):
         context_dict['avatar'] = avatar
         context_dict['equiped_items'] = equiped_items
     except:
-        print "Failed to retrieve avatar or his items"
+        print "Query fail Avatar_view"
     return render(request, 'Spartacus/avatar_view.html', context_dict)
+
+@login_required    
+def arena(request):
+    context_dict = {}
+    user = request.user
+    try:
+        opponents = Avatar.objects.exclude(user = user).order_by('-points')
+        you = Avatar.objects.get(user = user)
+        #your relevant opponents are the one with similar points to you
+        relevant_opponents = []
+        for opponent in opponents:
+            point_difference = int(opponent.points) - int(you.points)
+            if point_difference < 200 and point_difference > - 200:
+                relevant_opponents += [opponent]
+        context_dict['opponents'] = relevant_opponents
+    except:
+        print "Query fail Arena"
+    return render(request, 'Spartacus/arena.html', context_dict)
     
