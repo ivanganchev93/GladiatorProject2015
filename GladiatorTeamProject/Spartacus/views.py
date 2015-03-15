@@ -45,14 +45,14 @@ def fight(you, opponent):
         opponentDamage = (opponentAttack + youDeffence) / youDeffence
 
         while youHealth > 0 and opponentHealth > 0:
-            if int(youHitChance) <= randint(0,100):
+            if randint(0,100) <= int(youHitChance):
                 opponentHealth -= youDamage
-            if int(youDoubleHitChance) <= randint(0, 100):
+            if randint(0,100) <= int(youDoubleHitChance):
                 opponentHealth -= youDamage * 2
 
-            if int(opponentHitChance) <= randint(0,100):
+            if randint(0,100) <= int(opponentHitChance):
                 youHealth -= opponentDamage
-            if int(opponentDoubleHitChance) <= randint(0, 100):
+            if randint(0,100) <= int(opponentDoubleHitChance):
                 youHealth -= opponentDamage * 2
 
         if youHealth > opponentHealth:
