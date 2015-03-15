@@ -9,5 +9,11 @@ Battle<br />
 {{you.user.username}} : {{you.strength}}<br />
 {{opponent.user.username}}: {{opponent.strength}}<br />
 
-
+{% if victory == 1 %}
+    You won
+{% elif victory == -1 %}
+    You lost
+{% else %}
+    Tie fight
+{% endif %}
 {% endblock %}

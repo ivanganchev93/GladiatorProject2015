@@ -4,11 +4,20 @@
 {% block title %}Market{% endblock %}
     
 {% block body_block %}
+    {% if bought %}
+        You successfully bought {{ bought}}.
+    {% elif bought == False %}
+        You don`t have enough money.
+    {% endif %}
     <ul>
     {% for item in items %}
         <li>{{ item.name }}</a><br/>
-        <img src = "{{item.picture.url}}" width = "200" height = "200"><br />
-         </li>
+
+            <form method="post" action="{% url 'market' %}">
+                {% csrf_token %}
+                <input type="submit" value="Buy" name = "{{ item.name }}">
+            </form>
+        <img src = "{{item.picture.url}}" width = "200" height = "200"> {{ item.price }} gold<br />
         </li>
     {% endfor %}
     </ul>

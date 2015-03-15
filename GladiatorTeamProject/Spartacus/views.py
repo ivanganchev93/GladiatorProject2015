@@ -3,16 +3,79 @@ from Spartacus.forms import AvatarForm
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from Spartacus.models import User, Avatar, AvatarItem, Item
+from random import randint
 
 def fight(you, opponent):
-    strength = you.strength + 1
-    you.strength = strength
-    strength = opponent.strength + 1
-    opponent.strength = strength
-    you.save()
-    opponent.save()
-    
-    
+    try:
+        # items that are equiped
+        yourItems = AvatarItem.objects.filter(avatar = you, equiped = True)
+        opponentItems = AvatarItem.objects.filter(avatar = opponent, equiped = True)
+
+
+        youAttack = you.attack
+        youDeffence = you.deffence
+        opponentAttack = you.attack
+        opponentDeffence = you.deffence
+
+        # update attack and defence
+        for item in yourItems:
+            youAttack += item.item.attack
+            youDeffence += item.item.deffence
+        for item in opponentItems:
+            opponentAttack += item.item.attack
+            opponentDeffence += item.item.deffence
+
+        # both gladiators start the fight with 100 health
+        youHealth = 100
+        opponentHealth = 100
+
+        # the hit chance depends on the intelligence
+        hitRatio = (you.intelligence + opponent.intelligence) * 1.0
+        youHitChance = (you.intelligence / hitRatio) * 100 # in percentages
+        opponentHitChance = (opponent.intelligence / hitRatio) * 100  # in percentages
+
+        # chance of double hit depends on the agility and the initial hit chance
+        doubleHitRatio = (you.agility + opponent.agility) * 1.0
+        youDoubleHitChance = (youHitChance * (you.agility / doubleHitRatio))
+        opponentDoubleHitChance = (opponentHitChance * (opponent.agility / doubleHitRatio))
+
+
+        # damage
+        youDamage = (youAttack + opponentDeffence) / opponentDeffence
+        opponentDamage = (opponentAttack + youDeffence) / youDeffence
+
+        while youHealth > 0 and opponentHealth > 0:
+            if int(youHitChance) <= randint(0,100):
+                opponentHealth -= youDamage
+            if int(youDoubleHitChance) <= randint(0, 100):
+                opponentHealth -= youDamage * 2
+
+            if int(opponentHitChance) <= randint(0,100):
+                youHealth -= opponentDamage
+            if int(opponentDoubleHitChance) <= randint(0, 100):
+                youHealth -= opponentDamage * 2
+
+        if youHealth > opponentHealth:
+            you.points += 50
+            you.victories += 1
+
+            cashWon = opponent.cash / 10.0  # 10% of the opponent's cash
+            you.cash += cashWon
+            opponent.cash -= cashWon
+
+            you.save()
+            opponent.save()
+            return 1
+
+        elif youHealth < opponentHealth:
+            you.points += 20
+            you.save()
+            return -1
+        else:
+            return 1
+    except:
+        print "a"
+
 
 def index(request):
     context_dict = {'message': "SPARTACUS"}
@@ -87,9 +150,10 @@ def battle(request, opponent):
         you = Avatar.objects.get(user = request.user)
         opposing_user = User.objects.get(username = opponent)
         opponent = Avatar.objects.get(user = opposing_user)
-        fight(you, opponent)
+        victory = fight(you, opponent)
         context_dict['you'] = you
         context_dict['opponent'] = opponent
+        context_dict['victory'] = victory
     except:
         return HttpResponseRedirect(request, 'Spartacus/arena/')
         print "Query fail battle"
@@ -99,7 +163,24 @@ def battle(request, opponent):
 def market(request):
     context_dict = {}
     try:
+        avatar = Avatar.objects.get(user = request.user)
         items = Item.objects.order_by('-price')
+
+        if request.method == 'POST':
+            # iterate over the items to check which one was bought
+            for item in items:
+                if item.name in request.POST:
+                    if item.price <= avatar.cash:
+                        # then create an AvatarItem instance if the avatar has enough money
+                        avatarItem = AvatarItem.objects.create(item = item, avatar = avatar)
+
+                        cash = avatar.cash - item.price
+                        avatar.cash = cash
+                        avatar.save()
+                        context_dict["bought"] = item.name
+                    else:
+                        context_dict["bought"] = False
+
         context_dict['items'] = items
     except:
         print "Query fail market"
