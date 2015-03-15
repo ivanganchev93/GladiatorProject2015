@@ -3,7 +3,7 @@ from Spartacus.models import Avatar, Item, AvatarItem
 
 
 class AvatarAdmin(admin.ModelAdmin):
-    list_display = ['user', 'attack', 'deffence','strength', 'agility']
+    list_display = ['user', 'attack', 'deffence','strength', 'agility', 'intelligence', 'victories', 'cash', 'points']
     
 class ItemAdmin(admin.ModelAdmin):
     list_display = ['name','itemType', 'attack', 'deffence', 'price']

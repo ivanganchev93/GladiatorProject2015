@@ -14,8 +14,8 @@ def fight(you, opponent):
 
         youAttack = you.attack
         youDeffence = you.deffence
-        opponentAttack = you.attack
-        opponentDeffence = you.deffence
+        opponentAttack = opponent.attack
+        opponentDeffence = opponent.deffence
 
         # update attack and defence
         for item in yourItems:
@@ -55,6 +55,7 @@ def fight(you, opponent):
             if randint(0,100) <= int(opponentDoubleHitChance):
                 youHealth -= opponentDamage * 2
 
+        #victory
         if youHealth > opponentHealth:
             you.points += 50
             you.victories += 1
@@ -67,14 +68,19 @@ def fight(you, opponent):
             opponent.save()
             return 1
 
+        #defeat
         elif youHealth < opponentHealth:
             you.points += 20
             you.save()
             return -1
+        
+        #tie
         else:
-            return 1
+            you.points += 30
+            you.save()
+            return 0
     except:
-        print "a"
+        print "Query fail battle"
 
 
 def index(request):
@@ -165,23 +171,19 @@ def market(request):
     try:
         avatar = Avatar.objects.get(user = request.user)
         items = Item.objects.order_by('-price')
-
-        if request.method == 'POST':
-            # iterate over the items to check which one was bought
-            for item in items:
-                if item.name in request.POST:
-                    if item.price <= avatar.cash:
-                        # then create an AvatarItem instance if the avatar has enough money
-                        avatarItem = AvatarItem.objects.create(item = item, avatar = avatar)
-
-                        cash = avatar.cash - item.price
-                        avatar.cash = cash
-                        avatar.save()
-                        context_dict["bought"] = item.name
-                    else:
-                        context_dict["bought"] = False
-
         context_dict['items'] = items
+        
+        if request.method == 'POST':
+            item_name = request.POST['item']
+            item = Item.objects.get(name = item_name)
+            if item.price <= avatar.cash:
+                #create an AvatarItem instance if the avatar has enough money
+                avatarItem = AvatarItem.objects.create(item = item, avatar = avatar)
+                avatar.cash = avatar.cash - item.price
+                avatar.save()
+                context_dict["bought"] = item.name
+            else:
+                context_dict["bought"] = "Insufficient cash"
     except:
         print "Query fail market"
     return render (request, 'Spartacus/market.html', context_dict)
