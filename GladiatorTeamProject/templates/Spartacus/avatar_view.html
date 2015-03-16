@@ -21,20 +21,31 @@
         <ul>
         {% for item in inventory_items %}
             <li>
-                {{ item.item.name }}
+                {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
                     {% if avatar.user == user %}
-                        <button class="item" data-itemid="{{item.id}}" type="button">Equip</button>
+                        <button class="equip" data-itemid="{{item.id}}" type="button">Equip</button>
                     {% endif %}
             </li>
         {% endfor %}
         </ul>
         <br />
+
         Equiped:<br />
         <ul>
         {% for item in equiped_items %}
-            <li>
-                {{ item.item.name }}
-            </li>
+               <li>
+                    {% if item.item.itemType == "sword"%}
+                        Sword : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
+                    {% elif item.item.itemType == "armor"%}
+                        Armor : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
+                    {% elif item.item.itemType == "shield"%}
+                        Shield : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
+                    {% endif %}
+
+                    {% if avatar.user == user %}
+                           <button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
+                    {% endif %}
+               </li>
         {% endfor %}
         </ul>
     </div>

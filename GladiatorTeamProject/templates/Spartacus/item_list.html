@@ -1,22 +1,33 @@
 {% load staticfiles %}
 
 Inventory:<br />
-<ul>
-    {% for item in inventory_items %}
-    <li>
-        {{ item.item.name }}<button class="item" data-itemid="{{item.id}}" type="button">Equip</button>
-    </li>
-    {% endfor %}
-</ul>
-<br />
-Equiped:<br />
-<ul>
-    {% for item in equiped_items %}
-        <li>
-            {{ item.item.name }}
-        </li>
-    {% endfor %}
-</ul>
+        <ul>
+        {% for item in inventory_items %}
+            <li>
+                {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
+                        <button class="equip" data-itemid="{{item.id}}" type="button">Equip</button>
+            </li>
+        {% endfor %}
+        </ul>
+        <br />
+
+        Equiped:<br />
+        <ul>
+        {% for item in equiped_items %}
+               <li>
+                    {% if item.item.itemType == "sword"%}
+                        Sword : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
+                        <button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
+                    {% elif item.item.itemType == "armor"%}
+                        Armor : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
+                        <button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
+                    {% elif item.item.itemType == "shield"%}
+                        Shield : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
+                        <button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
+                    {% endif %}
+               </li>
+        {% endfor %}
+        </ul>
 <!-- TOTAL BS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="{% static "js/ajax.js" %}"></script>
