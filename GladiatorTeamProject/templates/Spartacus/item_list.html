@@ -17,14 +17,13 @@ Inventory:<br />
                <li>
                     {% if item.item.itemType == "sword"%}
                         Sword : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
-                        <button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
                     {% elif item.item.itemType == "armor"%}
                         Armor : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
-                        <button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
                     {% elif item.item.itemType == "shield"%}
                         Shield : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
-                        <button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
                     {% endif %}
+               
+                    <button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
                </li>
         {% endfor %}
         </ul>
