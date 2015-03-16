@@ -8,4 +8,5 @@ urlpatterns = patterns('',
         url(r'^arena/$', views.arena, name='arena'),
         url(r'^battle/(?P<opponent>[\w\-]+)$', views.battle, name='battle'),
         url(r'^market/$', views.market, name='market'),
-        url(r'^leaderboard/$', views.leaderboard, name='leaderboard'))
+        url(r'^leaderboard/$', views.leaderboard, name='leaderboard'),
+        url(r'^equip_item/$', views.equip_item, name='equip_item'))

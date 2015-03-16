@@ -16,21 +16,23 @@
     Victories: {{ avatar.victories }}<br />
     Points: {{ avatar.points }}<br />
     <br />
-    Inventory:<br />
-    <ul id="inventory">
-    {% for item in inventory_items %}
-        <li>
-            {{ item.item.name }}<button id="item" data-itemid="{{item.id}}" type="button">Equip</button>
-        </li>
-    {% endfor %}
-    </ul>
-    <br />
-    Equiped:<br />
-    <ul id="equiped">
-    {% for item in equiped_items %}
-        <li>
-            {{ item.item.name }}
-        </li>
-    {% endfor %}
-    </ul>
+    <div id="all_items">
+        Inventory:<br />
+        <ul>
+        {% for item in inventory_items %}
+            <li>
+                {{ item.item.name }}<button class="item" data-itemid="{{item.id}}" type="button">Equip</button>
+            </li>
+        {% endfor %}
+        </ul>
+        <br />
+        Equiped:<br />
+        <ul>
+        {% for item in equiped_items %}
+            <li>
+                {{ item.item.name }}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

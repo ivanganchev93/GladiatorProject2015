@@ -212,19 +212,25 @@ def leaderboard(request):
         print "Query fail leaderboard"
     return render(request, 'Spartacus/leaderboard.html', context_dict)
     
-#@login_required
-#def equip_item(request):
-#    item_id = None
-#    if request.method == 'GET':
-#        item_id = request.GET['item_id']
-#    
-#    if item_id:
-#        item = AvatarItem.objects.get(id = item_id)
-#        if item:
-#            item.equiped = True
-#            item.save()
-#    
-#    context_dict = {}
-
-
+def equip_item(request):
+    item_id = None
+    if request.method == 'GET':
+        item_id = request.GET['item_id']
+    
+    if item_id:
+        item = AvatarItem.objects.get(id = item_id)
+        avatar = item.avatar
+        if item:
+            item.equiped = True
+            item.save()
+    
+    context_dict = {}
+    try:
+        inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
+        equiped_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = True)
+        context_dict['equiped_items'] = equiped_items
+        context_dict['inventory_items'] = inventory_items
+    except:
+        print "Query fail equip_item"
+    return render(request, 'Spartacus/item_list.html', context_dict)
     
