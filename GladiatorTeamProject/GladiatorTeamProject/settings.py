@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'Spartacus',
     'registration',
+    'bootstrap_toolkit',
 )
 
 MIDDLEWARE_CLASSES = (
