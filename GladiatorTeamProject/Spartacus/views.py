@@ -63,6 +63,13 @@ def fight(you, opponent):
             cashWon = opponent.cash / 10.0  # 10% of the opponent's cash
             you.cash += cashWon
             opponent.cash -= cashWon
+            
+            #updating stats
+            you.attack += 2
+            you.deffence += 2
+            you.strength += 2
+            you.agility += 2
+            you.intelligence += 1
 
             you.save()
             opponent.save()
@@ -70,12 +77,20 @@ def fight(you, opponent):
 
         #defeat
         elif youHealth < opponentHealth:
+            #updating stats
+            you.attack += 1
+            you.deffence += 1
             you.points += 20
             you.save()
             return -1
         
         #tie
         else:
+            #updating stats
+            you.attack += 1
+            you.deffence += 1
+            you.strength += 1
+            you.agility += 1
             you.points += 30
             you.save()
             return 0
@@ -116,8 +131,6 @@ def add_profile(request):
     # Render the template depending on the context.
     return render(request, 'Spartacus/add_profile.html',   {'profile_form': profile_form} )
 
-    
-@login_required
 def avatar_view(request, name):
     context_dict = {}
     try:
@@ -198,6 +211,20 @@ def leaderboard(request):
     except:
         print "Query fail leaderboard"
     return render(request, 'Spartacus/leaderboard.html', context_dict)
+    
+#@login_required
+#def equip_item(request):
+#    item_id = None
+#    if request.method == 'GET':
+#        item_id = request.GET['item_id']
+#    
+#    if item_id:
+#        item = AvatarItem.objects.get(id = item_id)
+#        if item:
+#            item.equiped = True
+#            item.save()
+#    
+#    context_dict = {}
 
 
     
