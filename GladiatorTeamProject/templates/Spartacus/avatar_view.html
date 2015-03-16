@@ -21,7 +21,10 @@
         <ul>
         {% for item in inventory_items %}
             <li>
-                {{ item.item.name }}<button class="item" data-itemid="{{item.id}}" type="button">Equip</button>
+                {{ item.item.name }}
+                    {% if avatar.user == user %}
+                        <button class="item" data-itemid="{{item.id}}" type="button">Equip</button>
+                    {% endif %}
             </li>
         {% endfor %}
         </ul>

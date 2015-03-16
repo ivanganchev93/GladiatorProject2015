@@ -211,7 +211,8 @@ def leaderboard(request):
     except:
         print "Query fail leaderboard"
     return render(request, 'Spartacus/leaderboard.html', context_dict)
-    
+
+@login_required
 def equip_item(request):
     item_id = None
     if request.method == 'GET':
