@@ -21,6 +21,10 @@ Inventory:<br />
                         Armor : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
                     {% elif item.item.itemType == "shield"%}
                         Shield : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
+                     {% elif item.item.itemType == "boots"%}
+                        Boots : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
+                    {% elif item.item.itemType == "helmet"%}
+                        Helmet : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
                     {% endif %}
                
                     <button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>

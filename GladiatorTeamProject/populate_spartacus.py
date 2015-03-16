@@ -71,6 +71,57 @@ def populate():
         picture = "item_images/armor3.jpg")
 
 
+    add_item(name= "Iron armor",
+        price = "180",
+        itemType = "armor",
+        attack = "70",
+        deffence = "100",
+        picture = "item_images/armor3.jpg")
+
+    add_item(name= "Iron helmet",
+        price = "90",
+        itemType = "helmet",
+        attack = "50",
+        deffence = "60",
+        picture = "item_images/helmet1.jpg")
+
+    add_item(name= "Centurio helmet",
+        price = "250",
+        itemType = "helmet",
+        attack = "100",
+        deffence = "190",
+        picture = "item_images/helmet2.jpg")
+
+    add_item(name= "Copper helmet",
+        price = "140",
+        itemType = "helmet",
+        attack = "80",
+        deffence = "100",
+        picture = "item_images/helmet2.jpg")
+
+    add_item(name= "Sandals",
+        price = "80",
+        itemType = "boots",
+        attack = "60",
+        deffence = "50",
+        picture = "item_images/boots1.jpg")
+
+    add_item(name= "Golden boots",
+        price = "180",
+        itemType = "boots",
+        attack = "100",
+        deffence = "110",
+        picture = "item_images/boots2.jpg")
+
+    add_item(name= "Leather warrior sandals ",
+        price = "140",
+        itemType = "boots",
+        attack = "80",
+        deffence = "100",
+        picture = "item_images/boots3.jpg")
+
+
+
 def add_item(name, price, itemType, attack, deffence, picture):
     i = Item.objects.get_or_create(name = name,
                                    price = price,

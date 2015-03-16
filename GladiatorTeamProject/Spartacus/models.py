@@ -25,7 +25,9 @@ class Item(models.Model):
     ITEM_CHOICES = (
     ('sword', 'sword'),
     ('shield', 'shield'),
-    ('armor', 'armor'),)
+    ('armor', 'armor'),
+    ('helmet', 'helmet'),
+    ('boots', 'boots'),)
 
     price = models.IntegerField(default = 0)
     itemType = models.CharField(max_length=128, choices=ITEM_CHOICES, default= 'sword')
