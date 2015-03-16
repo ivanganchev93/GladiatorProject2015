@@ -11,14 +11,14 @@
     {% endif %}
     <ul>
     {% for item in items %}
-        <li>{{ item.name }}</a><br/>
+        <li>{{ item.name }}  {{ item.price }} gold</a><br/>
 
             <form method="post" action="{% url 'market' %}">
                 {% csrf_token %}
                 <input type="hidden" value="{{ item.name }}" name = "item">
                 <input type="submit" value="Buy" name = "Submit">
             </form>
-        <img src = "{{item.picture.url}}" width = "200" height = "200"> {{ item.price }} gold<br />
+        <img src = "{{item.picture.url}}" width = "200" height = "200"><br />
         </li>
     {% endfor %}
     </ul>

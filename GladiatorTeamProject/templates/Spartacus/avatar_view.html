@@ -6,6 +6,21 @@
 {% block body_block %}
 
 
-<p><img  src="{{ MEDIA_URL }}{{ avatar.picture }}" alt = "{{ user.username }}" class="img-responsive"/><br /><p />
+    <p><img  src="{{ MEDIA_URL }}{{ avatar.picture }}" alt = "{{ avatar.user.username }}" width = "300" height = "300"/><br /><p />
+    Name: {{ avatar.user.username }}<br />
+    Attack: {{ avatar.attack }}<br />
+    Defence: {{ avatar.deffence }}<br />
+    Strength: {{ avatar.strength }}<br />
+    Agility: {{ avatar.agility }}<br />
+    Intelligence: {{ avatar.intelligence }}<br />
+    Victories: {{ avatar.victories }}<br />
+    Points: {{ avatar.points }}<br />
+    <br />
+    Inventory:<br />
+    <ul>
+    {% for item in inventory_items %}
+        <li>{{ item.item.name }}</li>
+    {% endfor %}
+    </ul>
 
 {% endblock %}

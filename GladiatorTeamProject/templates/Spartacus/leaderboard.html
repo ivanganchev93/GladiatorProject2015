@@ -1,0 +1,13 @@
+{% extends 'Spartacus/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Leaderboard{% endblock %}
+    
+{% block body_block %}
+
+    <ol>
+        {% for avatar in avatars %}
+            <li><a href="{% url 'avatar_view' avatar.user.username %}">{{ avatar.user.username}}   {{avatar.points}}</a></li>
+        {% endfor %}
+    </ol>
+{% endblock %}

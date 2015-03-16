@@ -118,10 +118,11 @@ def add_profile(request):
 
     
 @login_required
-def avatar_view(request):
+def avatar_view(request, name):
     context_dict = {}
     try:
-        avatar = Avatar.objects.get(user = request.user)
+        user = User.objects.get(username = name)
+        avatar = Avatar.objects.get(user = user)
         inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
         equiped_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = True)
         context_dict['avatar'] = avatar
@@ -161,8 +162,8 @@ def battle(request, opponent):
         context_dict['opponent'] = opponent
         context_dict['victory'] = victory
     except:
-        return HttpResponseRedirect(request, 'Spartacus/arena/')
         print "Query fail battle"
+        return HttpResponseRedirect('/Spartacus/arena')
     return render(request, 'Spartacus/battle.html', context_dict)
     
 @login_required
@@ -188,7 +189,15 @@ def market(request):
         print "Query fail market"
     return render (request, 'Spartacus/market.html', context_dict)
     
-    
+def leaderboard(request):
+    context_dict = {}
+    try:
+        #list of top 20
+        avatars = Avatar.objects.order_by('-points')[:20]
+        context_dict['avatars'] = avatars
+    except:
+        print "Query fail leaderboard"
+    return render(request, 'Spartacus/leaderboard.html', context_dict)
 
 
     
