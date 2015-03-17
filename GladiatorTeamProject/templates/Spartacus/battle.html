@@ -26,13 +26,15 @@ Battle<br />
             <!-- Default panel contents -->
             <div class="panel-heading">Round {{ round.roundN }}</div>
             <div class="panel-body">
-            <p>...</p>
         </div>
 
         <!-- Table -->
         <table class="table">
-           # <tr><th  data-placement="left">Name:</th><td>{{ round['youDamage'] }}</td></tr>
-            <tr></tr>
+            <tr><td>{{ you.user.username }}  hits {{opponent.user.username}}</td><td>{{opponent.user.username}} receives {{ round.youDamage }} damage </td></tr>
+            <tr><td>{{opponent.user.username}} hits {{ you.user.username }}</td><td>{{ you.user.username }} receives {{ round.opponentDamage }} damage </td></tr>
+            <tr><td>{{ you.user.username }}  critically hits {{opponent.user.username}}</td><td>{{opponent.user.username}} receives critical <strong>{{ round.youDamage }} damage</strong> </td></tr>
+            <tr><td>{{opponent.user.username}} critically hit {{ you.user.username }}</td><td>{{ you.user.username }} receives critical <strong>{{ round.opponentDamage }} damage</strong> </td></tr>
+            <tr><td>{{ you.user.username }} health after {{ round.roundN }} round: {{ round.youHealth }}</td><td>{{ opponent.user.username }} health after {{ round.roundN }} round: {{ round.opponentHealth }}</td></tr>
         </table>
     </div>
         {% endfor %}
