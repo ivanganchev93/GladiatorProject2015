@@ -7,6 +7,8 @@ from random import randint
 from datetime import datetime
 
 def fight(you, opponent):
+    fightData={}
+    rounds=[]
     try:
         # items that are equiped
         yourItems = AvatarItem.objects.filter(avatar = you, equiped = True)
@@ -27,8 +29,8 @@ def fight(you, opponent):
             opponentDeffence += item.item.deffence
 
         # both gladiators start the fight with 100 health
-        youHealth = 100
-        opponentHealth = 100
+        youHealth = you.strength*25
+        opponentHealth = you.strength*25
 
         # the hit chance depends on the intelligence
         hitRatio = (you.intelligence + opponent.intelligence) * 1.0
@@ -44,18 +46,31 @@ def fight(you, opponent):
         # damage
         youDamage = (youAttack + opponentDeffence) / opponentDeffence
         opponentDamage = (opponentAttack + youDeffence) / youDeffence
-
+        criticalYou = 0
+        opponentCritical = 0
+        round=1
         while youHealth > 0 and opponentHealth > 0:
+
             if randint(0,100) <= int(youHitChance):
                 opponentHealth -= youDamage
+
             if randint(0,100) <= int(youDoubleHitChance):
-                opponentHealth -= youDamage * 2
+                criticalYou = youDamage*2
+                opponentHealth -= criticalYou
 
             if randint(0,100) <= int(opponentHitChance):
                 youHealth -= opponentDamage
             if randint(0,100) <= int(opponentDoubleHitChance):
-                youHealth -= opponentDamage * 2
+                opponentCritical = opponentDamage * 2
+                youHealth -=  opponentCritical
 
+            rounds.append({'youDamage': youDamage, 'opponentHealth': opponentHealth, 'criticalDamage': criticalYou,
+                           'youHealth': youHealth, 'opponentDamage': opponentDamage,
+                           'opponentCritical': opponentCritical, 'roundN': round})
+
+            round+=1
+
+        fightData["rounds"]=rounds
         #victory
         if youHealth > opponentHealth:
             you.points += 50
@@ -74,7 +89,9 @@ def fight(you, opponent):
 
             you.save()
             opponent.save()
-            return 1
+            fightData['result']=1
+
+            return fightData
 
         #defeat
         elif youHealth < opponentHealth:
@@ -83,7 +100,9 @@ def fight(you, opponent):
             you.deffence += 1
             you.points += 20
             you.save()
-            return -1
+            fightData['result']=-1
+
+            return fightData
         
         #tie
         else:
@@ -94,9 +113,13 @@ def fight(you, opponent):
             you.agility += 1
             you.points += 30
             you.save()
-            return 0
+            fightData['result']=0
+
+            return fightData
     except:
         print "Query fail battle"
+
+
 
 
 def index(request):
@@ -195,15 +218,17 @@ def battle(request, opponent):
         you = Avatar.objects.get(user = request.user)
         opposing_user = User.objects.get(username = opponent)
         opponent = Avatar.objects.get(user = opposing_user)
-        victory = fight(you, opponent)
+        fightData = fight(you, opponent)
+        victory = fightData['result']
         context_dict['you'] = you
         context_dict['opponent'] = opponent
         context_dict['victory'] = victory
+        context_dict['rounds'] = fightData['rounds']
     except:
         print "Query fail battle"
         return HttpResponseRedirect('/Spartacus/arena')
     return render(request, 'Spartacus/battle.html', context_dict)
-    
+
 @login_required
 def market(request):
     context_dict = {}

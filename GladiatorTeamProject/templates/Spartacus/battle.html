@@ -6,8 +6,7 @@
 {% block body_block %}
 Battle<br />
 
-{{you.user.username}} : {{you.strength}}<br />
-{{opponent.user.username}}: {{opponent.strength}}<br />
+{{you.user.username}} vs {{opponent.user.username}}<br />
 
 {% if victory == 1 %}
     You won
@@ -16,4 +15,29 @@ Battle<br />
 {% else %}
     Tie fight
 {% endif %}
+
+
+
+
+
+    <div class="col-xs-4 col-xs-offset-4">
+        {% for round in rounds %}
+        <div class="panel panel-warning">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Round {{ round.roundN }}</div>
+            <div class="panel-body">
+            <p>...</p>
+        </div>
+
+        <!-- Table -->
+        <table class="table">
+           # <tr><th  data-placement="left">Name:</th><td>{{ round['youDamage'] }}</td></tr>
+            <tr></tr>
+        </table>
+    </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}
+
+
