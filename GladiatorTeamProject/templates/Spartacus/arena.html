@@ -2,13 +2,17 @@
 {% load staticfiles %}
 
 {% block title %}Avatar{% endblock %}
-    
+
 {% block body_block %}
-    <ul>
-    {% for opponent in opponents %}
-        <li><a href="{% url 'battle' opponent.user.username %}">{{ opponent.user.username }}</a><br/>
-            {{ opponent.points }}</li>
-        </li>
-    {% endfor %}
-    </ul>
+    {% if time_passed %}
+        <ul>
+        {% for opponent in opponents %}
+            <li><a href="{% url 'battle' opponent.user.username %}">{{ opponent.user.username }}</a><br/>
+                {{ opponent.points }}</li>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <h6>Please wait for {{ time_left }} seconds.</h6>
+    {% endif %}
 {% endblock %}

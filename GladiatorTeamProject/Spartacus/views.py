@@ -151,24 +151,46 @@ def avatar_view(request, name):
 @login_required    
 def arena(request):
     context_dict = {}
-    user = request.user
-    try:
-        opponents = Avatar.objects.exclude(user = user).order_by('-points')
-        you = Avatar.objects.get(user = user)
-        #your relevant opponents are the one with similar points to you
-        relevant_opponents = []
-        for opponent in opponents:
-            point_difference = int(opponent.points) - int(you.points)
-            if point_difference < 200 and point_difference > - 200:
-                relevant_opponents += [opponent]
-        context_dict['opponents'] = relevant_opponents
-    except:
-        print "Query fail Arena"
+    timePassed = True
+
+    fightStartedAt = request.session.get("fightStartedAt")
+
+    #if fight started
+    if fightStartedAt and fightStartedAt!=0:
+        fightStartedAtTime = datetime.strptime(fightStartedAt[:-7], "%Y-%m-%d %H:%M:%S")
+        time_elapsed = (datetime.now() - fightStartedAtTime).seconds
+        waitTime = 10
+        if time_elapsed < waitTime:
+            timePassed = False
+        else:
+            request.session['fightStartedAt']=0
+        context_dict['time_left'] = waitTime - time_elapsed
+    else:
+        user = request.user
+        try:
+            opponents = Avatar.objects.exclude(user = user).order_by('-points')
+            you = Avatar.objects.get(user = user)
+            #your relevant opponents are the one with similar points to you
+            relevant_opponents = []
+            for opponent in opponents:
+                point_difference = int(opponent.points) - int(you.points)
+                if point_difference < 200 and point_difference > - 200:
+                    relevant_opponents += [opponent]
+            context_dict['opponents'] = relevant_opponents
+        except:
+            print "Query fail Arena"
+
+    context_dict['time_passed']=timePassed
+
     return render(request, 'Spartacus/arena.html', context_dict)
     
 @login_required
 def battle(request, opponent):
     context_dict = {}
+
+    #set start of fight
+    request.session["fightStartedAt"] = str(datetime.now())
+
     try:
         you = Avatar.objects.get(user = request.user)
         opposing_user = User.objects.get(username = opponent)
