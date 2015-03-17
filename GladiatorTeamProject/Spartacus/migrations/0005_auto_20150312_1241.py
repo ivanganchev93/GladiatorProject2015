@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
             model_name='item',
             name='name',
             field=models.CharField(unique=True, max_length=128),
-            preserve_default=True,
+    #        preserve_default=True,
         ),
     ]

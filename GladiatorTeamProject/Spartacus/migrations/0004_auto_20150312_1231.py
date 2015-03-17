@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
             model_name='avataritem',
             name='item',
             field=models.ForeignKey(to='Spartacus.Item'),
-            preserve_default=True,
+          #  preserve_default=True,
         ),
     ]

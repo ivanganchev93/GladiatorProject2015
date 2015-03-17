@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
             model_name='item',
             name='itemType',
             field=models.CharField(default=b'sword', max_length=128, choices=[(b'sword', b'sword'), (b'shield', b'shield'), (b'armor', b'armor'), (b'helmet', b'helmet'), (b'boots', b'boots')]),
-            preserve_default=True,
+           # preserve_default=True,
         ),
     ]

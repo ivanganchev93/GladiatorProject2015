@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from datetime import datetime
 
 class Avatar(models.Model):
     user = models.OneToOneField(User)
@@ -14,6 +14,9 @@ class Avatar(models.Model):
     agility = models.IntegerField(default= 10)
     intelligence = models.IntegerField(default = 10)
 
+    # Fight fields
+    #isFighting = models.BooleanField(default=False)
+    #fightStartedAt = models.DateField(default=datetime.now())
     victories = models.IntegerField(default = 0)
     points = models.IntegerField(default = 0) # for ranking...every time a gladiator fights get some amount of points
     # that determines his position in the rankings
