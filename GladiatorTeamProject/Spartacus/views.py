@@ -136,11 +136,13 @@ def avatar_view(request, name):
     try:
         user = User.objects.get(username = name)
         avatar = Avatar.objects.get(user = user)
+        health = avatar.strength*100;
         inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
         equiped_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = True)
         context_dict['avatar'] = avatar
         context_dict['equiped_items'] = equiped_items
         context_dict['inventory_items'] = inventory_items
+        context_dict['health']= health
     except:
         print "Query fail Avatar_view"
     return render(request, 'Spartacus/avatar_view.html', context_dict)

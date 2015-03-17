@@ -3,8 +3,14 @@
 
 {% block title %}Index{% endblock %}
 
+
 {% block body_block %}
+<div class="container-fluid">
+
+
     <h1>{{message}}</h1>
     <h1>{{user.username}}</h1>
     <img src="{% static "images/Colosseum.jpg" %}" alt="Colusseum" />
+	
+	
 {% endblock %}

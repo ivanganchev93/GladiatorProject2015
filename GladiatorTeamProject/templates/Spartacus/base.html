@@ -10,6 +10,32 @@
 		
 		<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
 		<link href="{% static "css/styles.css" %}" rel="stylesheet">
+		
+		<style>
+		table{
+			table-layout: fixed;
+		}
+		table,th, td, tr{
+			border: 1px solid black;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+				
+		}
+		button {
+			border: 1px solid black;
+			background-color: gray;
+			color: white;
+		}
+		input {
+			border: 1px solid black;
+			background-color: gray;
+			color: white;
+			
+		}
+		
+		</style>
+		
     </head>
     
     <body>
@@ -17,19 +43,32 @@
             {% block body_block %}{% endblock %}
         </div>   
         <hr />
-        <div>
-          <ul>
-            <li><a href="{% url 'leaderboard' %}">Leaderboard</a></li>
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'avatar_view' user.username %}">My Avatar</a></li>
-                <li><a href="{% url 'arena' %}">Arena</a></li>
-                <li><a href="{% url 'market' %}">Market</a></li>
-                <li><a href="{% url 'auth_logout' %}?next=/Spartacus/">Logout</a></li>
-            {% else %}
-                <li><a href="{% url 'registration_register' %}">Register</a></li>
-                <li><a href="{% url 'auth_login' %}">Login</a></li>
-            {% endif %}
-            </ul>
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  <a class="navbar-brand" href="{% url 'index' %}">Spartacus</a>
+				</div>
+				<div class="navbar-collapse collapse">
+				  <ul class="nav navbar-nav navbar-right">
+					<li><a href="{% url 'leaderboard' %}">Leaderboard</a></li>
+					{% if user.is_authenticated %}
+						<li><a href="{% url 'avatar_view' user.username %}">My Avatar</a></li>
+						<li><a href="{% url 'arena' %}">Arena</a></li>
+						<li><a href="{% url 'market' %}">Market</a></li>
+						<li><a href="{% url 'auth_logout' %}?next=/Spartacus/">Logout</a></li>
+					{% else %}
+						<li><a href="{% url 'registration_register' %}">Register</a></li>
+						<li><a href="{% url 'auth_login' %}">Login</a></li>
+					{% endif %}
+					</ul>
+				</div>
+			</div>
         </div>
     <!-- Javascript, JQuery, Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

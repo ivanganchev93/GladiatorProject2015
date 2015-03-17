@@ -5,9 +5,53 @@
     
 {% block body_block %}
 
-    <ol>
-        {% for avatar in avatars %}
-            <li><a href="{% url 'avatar_view' avatar.user.username %}">{{ avatar.user.username}}   {{avatar.points}}</a></li>
-        {% endfor %}
-    </ol>
+<style>
+table{
+    counter-reset: rowNumber;
+}
+
+#rank{
+    counter-increment: rowNumber;
+}
+
+table tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
+	}
+
+</style>
+
+<div class="container">
+	<div class="row" style="height: 25px">
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-6 col-xs-offset-3">
+					<table class="table">
+						<th style="text-align: center">Rankings</th>
+					</table>
+				</div>
+			</div>
+			<table class="table">
+				
+				<th>Position</th>
+				<th>Name</th>
+				<th>Points</th>
+				{% for avatar in avatars %}
+					<tr id="rank">
+					<td></td>
+					<td><a href="{% url 'avatar_view' avatar.user.username %}">{{ avatar.user.username}} </a></td>
+					<td>{{avatar.points}}</td>
+					</tr>
+				{% endfor %}
+				
+			</table>
+			
+		</div>
+	</div>
+</div>
+
+
 {% endblock %}
