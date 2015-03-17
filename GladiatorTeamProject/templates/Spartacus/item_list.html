@@ -2,49 +2,127 @@
 
 <div class="col-xs-12 col-md-6" >
 				
-				<div class="row" >
-					<div class="col-xs-12">
-						Equiped:<br />
-						<ul>
-						{% for item in equiped_items %}
-							   <li>
-									{% if item.item.itemType == "sword"%}
-										Sword : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
-									{% elif item.item.itemType == "armor"%}
-										Armor : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
-									{% elif item.item.itemType == "shield"%}
-										Shield : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
-									{% elif item.item.itemType == "boots"%}
-										Boots : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
-									{% elif item.item.itemType == "helmet"%}
-										Helmet : {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
-									{% endif %}
+	<div class="row">
+		<div class="col-xs-12" >
+		 Cash:{{ avatar.cash }} gold
+		</div>
+	</div>
 
-									
-										   <button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
-									
-							   </li>
-						{% endfor %}
-						</ul>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12">
-						Inventory:<br />
-						<ul>
-						{% for item in inventory_items %}
-							<li>
-								{{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
-									
-										<button class="equip" data-itemid="{{item.id}}" type="button">Equip</button>
-									
-							</li>
-						{% endfor %}
-						</ul>
-						<br />
-					</div>
-				</div>
+	<div class="row">
+		Equipted:
+		<div class="row">
+			<div class="col-xs-4 col-xs-offset-4">
+				{% for item in equiped_items %}
+					{% if item.item.itemType == "helmet"%}
+						Helmet : <br/>
+						<img src = "{{item.item.picture.url}}" width = "100" height = "100">
+						<br/>
+						<button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
+					{% elif item.item.itemType != "helmet" %}
+					
+					{% else %}
+						Helmet : <br/>
+						<img src = "{% static "images/blank_item.jpg" %}" width = "100" height = "100">
+						<br/>
+					{% endif %}
+				{% endfor %}
+				
 			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4 ">
+				{% for item in equiped_items %}
+					{% if item.item.itemType == "sword"%}
+						Sword : <br/>
+						<img src = "{{item.item.picture.url}}" width = "100" height = "100">
+						<br/>
+						<button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
+						
+					{% elif item.item.itemType != "sword" %}
+					
+					{% else %}
+						Sword : <br/>
+						<img src = "{% static "images/blank_item.jpg" %}" width = "100" height = "100">
+						<br/>
+					{% endif %}
+				{% endfor %}
+				
+			</div>
+			<div class="col-xs-4 ">
+				{% for item in equiped_items %}
+					{% if item.item.itemType == "armor"%}
+						Armor : <br/>
+						<img src = "{{item.item.picture.url}}" width = "100" height = "100">
+						<br/>
+						<button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
+					
+					{% elif item.item.itemType != "armor" %}
+					
+					{% else %}
+						Armor : <br/>
+						<img src = "{% static "images/blank_item.jpg" %}" width = "100" height = "100">
+						<br/>
+					{% endif %}
+				{% endfor %}
+			</div>
+			<div class="col-xs-4 ">
+				{% for item in equiped_items %}
+					{% if item.item.itemType == "shield"%}
+						 Shield : <br/>
+						<img src = "{{item.item.picture.url}}" width = "100" height = "100">
+						<br/>
+						<button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
+						
+					{% elif item.item.itemType != "shield" %}								
+						
+					{% else %}
+						Shield : <br/>
+						<img src = "{% static "images/blank_item.jpg" %}" width = "100" height = "100">
+						<br/>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-xs-offset-4">
+			{% for item in equiped_items %}
+				{% if item.item.itemType == "boots" %}
+					Boots : <br/>
+					<img src = "{{item.item.picture.url}}" width = "100" height = "100">
+					<br/>
+				{% elif item.item.itemType != "boots" %}
+					
+				{% else %}
+					Boots : <br/>
+					<img src = "{% static "images/blank_item.jpg" %}" width = "100" height = "100">
+					<br/>
+				{% endif %}
+			{% endfor %}
+			<button class="unequip" data-itemid="{{item.id}}" type="button">Unequip</button>
+		</div>
+	</div>
+
+				
+				
+				
+	<div class="row">
+		<div class="col-xs-12">
+			Inventory:<br />
+			<ul>
+			{% for item in inventory_items %}
+				<li>
+					{{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
+						
+							<button class="equip" data-itemid="{{item.id}}" type="button">Equip</button>
+						
+				</li>
+			{% endfor %}
+			</ul>
+			<br />
+		</div>
+	</div>
+</div>
 <!-- TOTAL BS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="{% static "js/ajax.js" %}"></script>
