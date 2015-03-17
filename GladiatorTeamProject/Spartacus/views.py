@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from Spartacus.models import User, Avatar, AvatarItem, Item
 from random import randint
+from datetime import datetime
 
 def fight(you, opponent):
     try:
@@ -61,7 +62,7 @@ def fight(you, opponent):
             you.victories += 1
 
             cashWon = opponent.cash / 10.0  # 10% of the opponent's cash
-            you.cash += cashWon
+            you.cash += cashWon + 30  #30 cash extra for a victory
             opponent.cash -= cashWon
             
             #updating stats
@@ -266,3 +267,54 @@ def unequip_item(request):
     except:
         print "Query fail equip_item"
     return render(request, 'Spartacus/item_list.html', context_dict)
+    
+@login_required
+def questing(request):
+    context_dict = {}
+    quest_name = None
+    success = False
+    time_passed = True
+    #using cookies to make quest availabe once every minute
+    last_played = request.session.get('last_played')
+    if last_played:
+        last_played_time = datetime.strptime(last_played[:-7], "%Y-%m-%d %H:%M:%S")
+        time_elapsed = (datetime.now() - last_played_time).seconds
+        #time before quests are available again
+        wait_time = 60
+        if time_elapsed < wait_time:
+            time_passed = False
+        context_dict['time_left'] =  wait_time - time_elapsed
+    context_dict['time_passed'] = time_passed
+    try:
+        avatar = Avatar.objects.get(user = request.user)
+        if request.method == 'POST':
+            request.session['last_played'] = str(datetime.now())
+            quest_name = request.POST['quest_name']
+        if quest_name:
+            ran = randint(0,100)
+            if quest_name == "money":
+                if ran > 30:
+                    avatar.cash += 100
+                    success = True
+            elif quest_name == "workout":
+                if ran > 50:
+                    avatar.cash -= 50
+                    avatar.strength += 2
+                    success = True
+            elif quest_name == "precission":
+                if ran > 50:
+                    avatar.cash -= 50
+                    avatar.agility += 2
+                    success = True
+            elif quest_name == "learn":
+                if ran > 60:
+                    avatar.cash -= 50
+                    avatar.intelligence += 1
+                    success = True
+            avatar.save()
+            context_dict['quest_name'] = quest_name
+            context_dict['success'] = success
+            context_dict['questing'] = True
+    except:
+        print "Query fail questing"
+    return render(request, 'Spartacus/questing.html', context_dict)

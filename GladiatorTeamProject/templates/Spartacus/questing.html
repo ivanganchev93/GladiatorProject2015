@@ -1,0 +1,67 @@
+{% extends 'Spartacus/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Questing{% endblock %}
+    
+{% block body_block %}
+    {% if time_passed %}
+    {% if questing %}
+        {% if success %}
+            You have succeeded in your quest to
+        {% else %}
+            You have failed in your quest to
+        {% endif %}
+        
+        {% if quest_name == "money" %}
+            aquire money!
+        {% elif quest_name == "workout" %}
+            gain strength!
+        {% elif quest_name == "precission" %}
+            gain agility!
+        {% elif quest_name == "learn" %}
+            gain knowledge!
+        {% endif %}
+        
+    
+    {% else %}
+    Attemp a quest:<br />
+    
+    <form method="post" action="{% url 'questing' %}">
+        {% csrf_token %}
+        <p>Clean the body parts in the colloseum (+100 gold)
+		<input type="hidden" value="money" name = "quest_name">
+		<input type="submit" value="Attempt" name = "Submit">
+        </p>
+    </form>
+    
+    <form method="post" action="{% url 'questing' %}">
+        {% csrf_token %}
+        <p>Test your might against mercenaries for a fee (+2 strength, -50 gold)
+		<input type="hidden" value="workout" name = "quest_name">
+		<input type="submit" value="Attempt" name = "Submit">
+        </p>
+    </form>
+    
+    <form method="post" action="{% url 'questing' %}">
+        {% csrf_token %}
+        <p>Practice your precision with the bow of a mercenary (+2 agility, -50 gold)
+		<input type="hidden" value="precission" name = "quest_name">
+		<input type="submit" value="Attempt" name = "Submit">
+        </p>
+    </form>
+    
+    <form method="post" action="{% url 'questing' %}">
+        {% csrf_token %}
+        <p>Study philosophy with a tutor for 50 gold (+1 intelligence, -50 gold)
+		<input type="hidden" value="learn" name = "quest_name">
+		<input type="submit" value="Attempt" name = "Submit">
+        </p>
+    </form>
+    
+    {% endif %}
+    
+    {% else %}
+        You can attempt a new quest in {{ time_left }} seconds!
+    {% endif %}
+    
+{% endblock %}
