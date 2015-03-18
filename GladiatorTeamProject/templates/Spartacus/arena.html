@@ -1,18 +1,99 @@
 {% extends 'Spartacus/base.html' %}
 {% load staticfiles %}
 
-{% block title %}Avatar{% endblock %}
+{% block title %}Arena{% endblock %}
 
 {% block body_block %}
-    {% if time_passed %}
-        <ul>
-        {% for opponent in opponents %}
-            <li><a href="{% url 'battle' opponent.user.username %}">{{ opponent.user.username }}</a><br/>
-                {{ opponent.points }}</li>
-            </li>
-        {% endfor %}
+
+<style>
+table{
+    counter-reset: rowNumber;
+}
+
+#rank{
+    counter-increment: rowNumber;
+}
+
+table tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
+	}
+
+</style>
+
+
+
+
+
+{% if time_passed %}
+<div class="container">
+	<div class="row">
+		<div class="col-xs-5">
+			<div class="row">
+				<div class="col-xs-6 col-xs-offset-3">
+					<table class="table">
+						<th style="text-align: center">Rankings</th>
+					</table>
+				</div>
+			</div>
+			<table class="table">
+
+				<th>Position</th>
+				<th>Name</th>
+				<th>Points</th>
+				{% for avatar in avatars %}
+					<tr id="rank">
+					<td></td>
+					<td><a href="{% url 'avatar_view' avatar.user.username %}">{{ avatar.user.username}} </a></td>
+					<td>{{avatar.points}}</td>
+					</tr>
+				{% endfor %}
+
+			</table>
+
+            <div class="col-xs-12">
+            </div>
+		</div>
+
+        <div class="col-xs-5">
+			<div class="row">
+				<div class="col-xs-6 col-xs-offset-3">
+					<table class="table">
+						<th style="text-align: center">Own Placing</th>
+					</table>
+				</div>
+			</div>
+			<table class="table">
+
+				<th>Position</th>
+				<th>Name</th>
+				<th>Points</th>
+                <th>Attack</th>
+				{% for opponent in opponents %}
+					<tr id="rank">
+					<td></td>
+					<td><a href="{% url 'avatar_view' opponent.user.username %}">{{ opponent.user.username}} </a></td>
+					<td>{{opponent.points}}</td>
+                    <td><a href="{% url 'battle' opponent.user.username %}">
+                        <img src = "{% static 'images/attack.jpg' %}" width = "40" height = "20">
+                    </a></td>
+					</tr>
+				{% endfor %}
+
+			</table>
+
+            <ul>
         </ul>
-    {% else %}
+            <div class="col-xs-12">
+            </div>
+		</div>
+
+	</div>
+</div>
+
+{% else %}
         <h6>Please wait for {{ time_left }} seconds.</h6>
-    {% endif %}
+{% endif %}
+
 {% endblock %}

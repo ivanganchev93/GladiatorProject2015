@@ -190,6 +190,13 @@ def avatar_view(request, name):
 @login_required    
 def arena(request):
     context_dict = {}
+    try:
+        #list of top 5
+        avatars = Avatar.objects.order_by('-points')[:5]
+        context_dict['avatars'] = avatars
+    except:
+        print "Query fail leaderboard"
+
     timePassed = True
 
     fightStartedAt = request.session.get("fightStartedAt")
