@@ -14,9 +14,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12" >
-                        Cash:{{ avatar.cash }} gold
-                    </div>
                 </div>
                 <table class= table style="width: 300px">
                     <tr><th  data-toggle="tooltip" data-placement="left" title="This is your name">Name:</th><td>{{ avatar.user.username }}</td></tr>
@@ -105,6 +102,7 @@
 
                     <div class="row">
                         <div class="col-xs-12">
+                            Cash:{{ avatar.cash }} gold<br />
                             Inventory:<br />
                             <ul>
                                 {% for item in inventory_items %}
@@ -112,6 +110,7 @@
                                         {{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
                                         {% if avatar.user == user %}
                                             <button class="equip" data-itemid="{{item.id}}" type="button">Equip</button>
+                                            <button class="sell" data-itemid="{{item.id}}" type="button">Sell</button>
                                         {% endif %}
                                     </li>
                                 {% endfor %}
@@ -119,9 +118,11 @@
                             <br />
                             <br />
                             <div align="center">
+                            {% if time_passed %}
                                 {% if avatar.user != user %}
-                                    <button onclick="location.href = '{% url 'battle' avatar.user.username%}';"  type="button" class="btn btn-danger">DESTROY</button>
+                                    <button onclick="location.href = '{% url 'battle' avatar.user.username%}';"  type="button" class="btn btn-danger">FIGHT</button>
                                 {% endif %}
+                            {% endif %}
                             </div>
                         </div>
                     </div>

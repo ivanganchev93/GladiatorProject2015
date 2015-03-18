@@ -13,7 +13,12 @@ $(document).ready(function() {
             $('#all_items').html(data);
         });
     });
+    
+    $('.sell').click(function(){
+        var itemid = $(this).attr("data-itemid");
+        $.get("/Spartacus/sell_item/", {item_id: itemid}, function(data){
+            $('#all_items').html(data);
+        });
+    });
 	
-
-
 });

@@ -76,12 +76,14 @@
 
     <div class="row">
 		<div class="col-xs-12">
+            Cash:{{ avatar.cash }} gold<br />
 			Inventory:<br />
 			<ul>
 			{% for item in inventory_items %}
 				<li>
 					{{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
 							<button class="equip" data-itemid="{{item.id}}" type="button">Equip</button>
+                            <button class="sell" data-itemid="{{item.id}}" type="button">Sell</button>
 				</li>
 			{% endfor %}
 			</ul>

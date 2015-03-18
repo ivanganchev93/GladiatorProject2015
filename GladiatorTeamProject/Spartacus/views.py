@@ -135,6 +135,31 @@ def fight(you, opponent):
     except:
         print "Query fail battle"
 
+        
+def getItems(avatar):
+    context_dict = {}
+    try:
+        inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
+        equiped_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = True)
+
+        for equiped_item in equiped_items:
+            if equiped_item.item.itemType == "helmet":
+                context_dict['helmet'] = equiped_item
+            elif equiped_item.item.itemType == "sword":
+                context_dict['sword'] = equiped_item
+            elif equiped_item.item.itemType == "armor":
+                context_dict['armor'] = equiped_item
+            elif equiped_item.item.itemType == "shield":
+                context_dict['shield'] = equiped_item
+            elif equiped_item.item.itemType == "boots":
+                context_dict['boots'] = equiped_item
+        
+        context_dict['equiped_items'] = equiped_items
+        context_dict['inventory_items'] = inventory_items
+        context_dict['avatar'] = avatar
+    except:
+        print "Query fail getItems function"
+    return context_dict
 
 
 
@@ -173,28 +198,30 @@ def add_profile(request):
 
 def avatar_view(request, name):
     context_dict = {}
+    
+    #Allowed to fight variables here
+    timePassed = True
+
+    fightStartedAt = request.session.get("fightStartedAt")
+
+    if fightStartedAt and fightStartedAt!=0:
+        fightStartedAtTime = datetime.strptime(fightStartedAt[:-7], "%Y-%m-%d %H:%M:%S")
+        time_elapsed = (datetime.now() - fightStartedAtTime).seconds
+        waitTime = 10
+        if time_elapsed < waitTime:
+            timePassed = False
+        else:
+            request.session['fightStartedAt']=0
+        context_dict['time_left'] = waitTime - time_elapsed
+    context_dict['time_passed'] = timePassed
+    
     try:
         user = User.objects.get(username = name)
         avatar = Avatar.objects.get(user = user)
         health = avatar.strength*100;
-        inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
-        equiped_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = True)
-
-        for equiped_item in equiped_items:
-            if equiped_item.item.itemType == "helmet":
-                context_dict['helmet'] = equiped_item
-            elif equiped_item.item.itemType == "sword":
-                context_dict['sword'] = equiped_item
-            elif equiped_item.item.itemType == "armor":
-                context_dict['armor'] = equiped_item
-            elif equiped_item.item.itemType == "shield":
-                context_dict['shield'] = equiped_item
-            elif equiped_item.item.itemType == "boots":
-                context_dict['boots'] = equiped_item
-
-        context_dict['avatar'] = avatar
-        context_dict['equiped_items'] = equiped_items
-        context_dict['inventory_items'] = inventory_items
+        
+        context_dict.update(getItems(avatar))
+        
         context_dict['health']= health
     except:
         print "Query fail Avatar_view"
@@ -316,29 +343,9 @@ def equip_item(request):
         if item:
             item.equiped = True
             item.save()
+     
+    context_dict = getItems(avatar)
     
-    context_dict = {}
-    
-    try:
-        inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
-        equiped_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = True)
-
-        for equiped_item in equiped_items:
-            if equiped_item.item.itemType == "helmet":
-                context_dict['helmet'] = equiped_item
-            elif equiped_item.item.itemType == "sword":
-                context_dict['sword'] = equiped_item
-            elif equiped_item.item.itemType == "armor":
-                context_dict['armor'] = equiped_item
-            elif equiped_item.item.itemType == "shield":
-                context_dict['shield'] = equiped_item
-            elif equiped_item.item.itemType == "boots":
-                context_dict['boots'] = equiped_item
-
-        context_dict['equiped_items'] = equiped_items
-        context_dict['inventory_items'] = inventory_items
-    except:
-        print "Query fail equip_item"
     return render(request, 'Spartacus/item_list.html', context_dict)
 
 
@@ -356,28 +363,8 @@ def unequip_item(request):
             item.equiped = False
             item.save()
 
-    context_dict = {}
-
-    try:
-        inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
-        equiped_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = True)
-
-        for equiped_item in equiped_items:
-            if equiped_item.item.itemType == "helmet":
-                context_dict['helmet'] = equiped_item
-            elif equiped_item.item.itemType == "sword":
-                context_dict['sword'] = equiped_item
-            elif equiped_item.item.itemType == "armor":
-                context_dict['armor'] = equiped_item
-            elif equiped_item.item.itemType == "shield":
-                context_dict['shield'] = equiped_item
-            elif equiped_item.item.itemType == "boots":
-                context_dict['boots'] = equiped_item
-
-        context_dict['equiped_items'] = equiped_items
-        context_dict['inventory_items'] = inventory_items
-    except:
-        print "Query fail equip_item"
+    context_dict = getItems(avatar)
+    
     return render(request, 'Spartacus/item_list.html', context_dict)
     
 @login_required
@@ -430,3 +417,22 @@ def questing(request):
     except:
         print "Query fail questing"
     return render(request, 'Spartacus/questing.html', context_dict)
+    
+@login_required
+def sell_item(request):
+    item_id = None
+    if request.method == 'GET':
+        item_id = request.GET['item_id']
+        
+    if item_id:
+        item = AvatarItem.objects.get(id = item_id)
+        avatar = item.avatar
+    sell_amount = int(item.item.price * 0.3) #sell an item at 30% of original price
+    avatar.cash += sell_amount
+    item.delete()
+    avatar.save()
+    
+    context_dict = getItems(avatar)
+    
+    return render(request, 'Spartacus/item_list.html', context_dict)
+    
