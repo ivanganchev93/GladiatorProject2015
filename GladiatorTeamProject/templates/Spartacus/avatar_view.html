@@ -155,9 +155,16 @@
 						{% endfor %}
 						</ul>
 						<br />
+                        <br />
+                        <div align="center">
+                        {% if avatar.user != user %}
+                        <button onclick="location.href = '{% url 'battle' avatar.user.username%}';"  type="button" class="btn btn-danger">DESTROY</button>
+                        {% endif %}
+                        </div>
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
 	</div>
