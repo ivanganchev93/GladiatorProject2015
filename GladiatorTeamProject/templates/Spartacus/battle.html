@@ -4,17 +4,77 @@
 {% block title %}Battle{% endblock %}
     
 {% block body_block %}
-Battle<br />
 
-{{you.user.username}} vs {{opponent.user.username}}<br />
+
 
 {% if victory == 1 %}
-    You won
+<div class="col-xs-4 col-xs-offset-4">
+    <div class="panel panel panel-success">
+            <!-- Default panel contents -->
+            <div class="panel panel-heading" align="center"><h1><strong>You Won !!!</strong></h1></div>
+            <div class="panel-body" align="center"><h4><strong>{{you.user.username}} vs {{opponent.user.username}}<br /></strong></h4>
+                <br></div>
+
+
+        <!-- Table -->
+        <table class="table" >
+        </table>
+            <tr><td><strong>{{ you.user.username }}</strong> has received {{ stats.attack }} attack points </td></tr>
+            <br>
+            <tr><br><td valign="center"><strong>{{ you.user.username }}</strong> has received {{ stats.deffence }} defence points </td></tr>
+            <br>
+            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.strength }} strength points </td></tr>
+            <br>
+            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.agility }} agility points </td></tr>
+            <br>
+            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.intelligence }} intelligence points </td></tr>
+            <br>
+        </table>
+    </div>
+</div>
 {% elif victory == -1 %}
-    You lost
+
+<div class="col-xs-4 col-xs-offset-4">
+    <div class="panel panel panel-danger">
+            <!-- Default panel contents -->
+            <div class="panel panel-heading" align="center"><h1><strong>You lost</strong></h1></div>
+            <div class="panel-body" align="center">
+                <h4><strong>{{you.user.username}} vs {{opponent.user.username}}<br /></strong></h4>
+                <p>It looks like this opponent was too well prepared for this battle</p>
+                <br>
+            </div>
+
+    </div>
+</div>
 {% else %}
-    Tie fight
+    <div class="col-xs-4 col-xs-offset-4">
+    <div class="panel panel panel-info">
+            <!-- Default panel contents -->
+            <div class="panel panel-heading" align="center"><h1><strong>Draw</strong></h1></div>
+
+            <div class="panel-body" align="center">  <h5><strong>{{you.user.username}} vs {{opponent.user.username}}<br /></strong></h5>
+            <br>
+            </div>
+
+
+            <!-- Table -->
+        <table class="table">
+        </table>
+            <tr><td><strong>{{ you.user.username }}</strong> has received {{ stats.attack }} attack points </td></tr>
+            <br>
+            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.deffence }} defence points </td></tr>
+            <br>
+            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.strength }} strength points </td></tr>
+            <br>
+            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.agility }} agility points </td></tr>
+            <br>
+            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.points }} points </td></tr>
+            <br>
+        </table>
+    </div>
+</div>
 {% endif %}
+
 
 
 
@@ -26,14 +86,14 @@ Battle<br />
             <!-- Default panel contents -->
             <div class="panel-heading">Round {{ round.roundN }}</div>
             <div class="panel-body">
-        </div>
+            </div>
 
         <!-- Table -->
         <table class="table">
             <tr><td>{{ you.user.username }}  hits {{opponent.user.username}}</td><td>{{opponent.user.username}} receives {{ round.youDamage }} damage </td></tr>
             <tr><td>{{opponent.user.username}} hits {{ you.user.username }}</td><td>{{ you.user.username }} receives {{ round.opponentDamage }} damage </td></tr>
             <tr><td>{{ you.user.username }}  critically hits {{opponent.user.username}}</td><td>{{opponent.user.username}} receives critical <strong>{{ round.youDamage }} damage</strong> </td></tr>
-            <tr><td>{{opponent.user.username}} critically hit {{ you.user.username }}</td><td>{{ you.user.username }} receives critical <strong>{{ round.opponentDamage }} damage</strong> </td></tr>
+            <tr><td>{{opponent.user.username}} critically hits {{ you.user.username }}</td><td>{{ you.user.username }} receives critical <strong>{{ round.opponentDamage }} damage</strong> </td></tr>
             <tr><td>{{ you.user.username }} health after {{ round.roundN }} round: {{ round.youHealth }}</td><td>{{ opponent.user.username }} health after {{ round.roundN }} round: {{ round.opponentHealth }}</td></tr>
         </table>
     </div>

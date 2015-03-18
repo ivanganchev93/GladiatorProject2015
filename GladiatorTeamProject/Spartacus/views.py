@@ -71,6 +71,8 @@ def fight(you, opponent):
             round+=1
 
         fightData["rounds"]=rounds
+        fightData["stats"]={}
+
         #victory
         if youHealth > opponentHealth:
             you.points += 50
@@ -86,6 +88,11 @@ def fight(you, opponent):
             you.strength += 2
             you.agility += 2
             you.intelligence += 1
+            fightData["stats"]["attack"]=2
+            fightData["stats"]["deffence"]=2
+            fightData["stats"]["strength"]=2
+            fightData["stats"]["agility"]=2
+            fightData["stats"]["intelligence"]=2
 
             you.save()
             opponent.save()
@@ -100,8 +107,11 @@ def fight(you, opponent):
             you.deffence += 1
             you.points += 20
             you.save()
+            fightData["stats"]['result']=-1
+            fightData["stats"]["attack"]=1
+            fightData["stats"]["deffence"]=1
+            fightData["stats"]["points"]=20
             fightData['result']=-1
-
             return fightData
         
         #tie
@@ -113,6 +123,12 @@ def fight(you, opponent):
             you.agility += 1
             you.points += 30
             you.save()
+
+            fightData["stats"]["attack"]=1
+            fightData["stats"]["deffence"]=1
+            fightData["stats"]["strength"]=1
+            fightData["stats"]["agility"]=1
+            fightData["stats"]["points"]=30
             fightData['result']=0
 
             return fightData
@@ -219,7 +235,12 @@ def battle(request, opponent):
         opposing_user = User.objects.get(username = opponent)
         opponent = Avatar.objects.get(user = opposing_user)
         fightData = fight(you, opponent)
+
         victory = fightData['result']
+        print "do not work"
+        stats = fightData["stats"]
+
+        context_dict["stats"]=stats
         context_dict['you'] = you
         context_dict['opponent'] = opponent
         context_dict['victory'] = victory
