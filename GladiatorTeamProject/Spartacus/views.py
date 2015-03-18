@@ -355,7 +355,7 @@ def questing(request):
         last_played_time = datetime.strptime(last_played[:-7], "%Y-%m-%d %H:%M:%S")
         time_elapsed = (datetime.now() - last_played_time).seconds
         #time before quests are available again
-        wait_time = 60
+        wait_time = 5
         if time_elapsed < wait_time:
             time_passed = False
         context_dict['time_left'] =  wait_time - time_elapsed
