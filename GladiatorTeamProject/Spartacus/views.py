@@ -179,6 +179,19 @@ def avatar_view(request, name):
         health = avatar.strength*100;
         inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
         equiped_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = True)
+
+        for equiped_item in equiped_items:
+            if equiped_item.item.itemType == "helmet":
+                context_dict['helmet'] = equiped_item
+            elif equiped_item.item.itemType == "sword":
+                context_dict['sword'] = equiped_item
+            elif equiped_item.item.itemType == "armor":
+                context_dict['armor'] = equiped_item
+            elif equiped_item.item.itemType == "shield":
+                context_dict['shield'] = equiped_item
+            elif equiped_item.item.itemType == "boots":
+                context_dict['boots'] = equiped_item
+
         context_dict['avatar'] = avatar
         context_dict['equiped_items'] = equiped_items
         context_dict['inventory_items'] = inventory_items
@@ -310,6 +323,18 @@ def equip_item(request):
         inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
         equiped_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = True)
 
+        for equiped_item in equiped_items:
+            if equiped_item.item.itemType == "helmet":
+                context_dict['helmet'] = equiped_item
+            elif equiped_item.item.itemType == "sword":
+                context_dict['sword'] = equiped_item
+            elif equiped_item.item.itemType == "armor":
+                context_dict['armor'] = equiped_item
+            elif equiped_item.item.itemType == "shield":
+                context_dict['shield'] = equiped_item
+            elif equiped_item.item.itemType == "boots":
+                context_dict['boots'] = equiped_item
+
         context_dict['equiped_items'] = equiped_items
         context_dict['inventory_items'] = inventory_items
     except:
@@ -336,6 +361,18 @@ def unequip_item(request):
     try:
         inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
         equiped_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = True)
+
+        for equiped_item in equiped_items:
+            if equiped_item.item.itemType == "helmet":
+                context_dict['helmet'] = equiped_item
+            elif equiped_item.item.itemType == "sword":
+                context_dict['sword'] = equiped_item
+            elif equiped_item.item.itemType == "armor":
+                context_dict['armor'] = equiped_item
+            elif equiped_item.item.itemType == "shield":
+                context_dict['shield'] = equiped_item
+            elif equiped_item.item.itemType == "boots":
+                context_dict['boots'] = equiped_item
 
         context_dict['equiped_items'] = equiped_items
         context_dict['inventory_items'] = inventory_items
