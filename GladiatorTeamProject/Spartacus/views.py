@@ -211,7 +211,7 @@ def arena(request):
         else:
             request.session['fightStartedAt']=0
         context_dict['time_left'] = waitTime - time_elapsed
-    if not fightStartedAt:
+    if timePassed:
         user = request.user
         try:
             opponents = Avatar.objects.exclude(user = user).order_by('-points')
