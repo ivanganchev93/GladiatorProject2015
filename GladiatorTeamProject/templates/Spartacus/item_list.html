@@ -1,93 +1,107 @@
 {% load staticfiles %}
-
+{% load app_filters %}
 <div class="col-xs-12 col-md-6" >
 
-<div class="row">
-    Equipted:
+
     <div class="row">
-        <div class="col-xs-4 col-xs-offset-4">
-            Helmet : <br/>
-            {% if helmet %}
-                <img src = "{{helmet.item.picture.url}}" width = "100" height = "100">
-                <br/>
 
-                <button class="unequip" data-itemid="{{helmet.id}}" type="button">Unequip</button>
+                        <div class="row">
+                            <div class="col-xs-4 col-xs-offset-4">
 
-            {% else %}
-                <img src = "{% static "images/blank_item.jpg" %}" width = "100" height = "100">
-            {% endif %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-4 ">
-            Sword : <br/>
-            {% if sword %}
-                <img src = "{{sword.item.picture.url}}" width = "100" height = "100">
-                <br/>
+                                {% if helmet %}
+                                    {% if avatar.user == user %}
+                                        <img class="unequip" data-itemid="{{helmet.id}}" src = "{{helmet.item.picture.url}}" width = "100" height = "100">
+                                        <br>
+                                    {% endif %}
+                                    {% if avatar.user != user %}
+                                        <img src = "{{helmet.item.picture.url}}" width = "100" height = "100">
+                                        <br>
+                                    {% endif %}
+                                {% else %}
+                                    <img src = "{% static "images/helmet.jpg" %}" width = "100" height = "100">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 ">
 
-                <button class="unequip" data-itemid="{{sword.id}}" type="button">Unequip</button>
+                                {% if sword %}
+                                    {% if avatar.user == user %}
+                                        <img class="unequip" data-itemid="{{sword.id}}" src = "{{sword.item.picture.url}}" width = "100" height = "100">
+                                    <br/>
+                                    {% endif %}
+                                    {% if avatar.user != user %}
+                                        <img src = "{{sword.item.picture.url}}" width = "100" height = "100">
+                                    {% endif %}
+                                {% else %}
+                                    <img src = "{% static "images/sword.jpg" %}" width = "100" height = "100">
+                                {% endif %}
 
-            {% else %}
-                <img src = "{% static "images/blank_item.jpg" %}" width = "100" height = "100">
-            {% endif %}
+                            </div>
+                            <div class="col-xs-4 ">
 
-        </div>
-        <div class="col-xs-4 ">
-            Armor : <br/>
-            {% if armor %}
-                <img src = "{{armor.item.picture.url}}" width = "100" height = "100">
-                <br/>
+                                {% if armor %}
+                                    {% if avatar.user == user %}
+                                    <img class="unequip" data-itemid="{{armor.id}}" src = "{{armor.item.picture.url}}" width = "100" height = "100">
+                                    <br/>
+                                    {% endif %}
+                                    {% if avatar.user != user %}
+                                        <img src = "{{armor.item.picture.url}}" width = "100" height = "100">
+                                    {% endif %}
+                                {% else %}
+                                    <img src = "{% static "images/armour.jpg" %}" width = "100" height = "100">
+                                {% endif %}
+                            </div>
+                            <div class="col-xs-4 ">
 
-                <button class="unequip" data-itemid="{{armor.id}}" type="button">Unequip</button>
+                                {% if shield %}
+                                    {% if avatar.user == user %}
+                                    <img class="unequip" data-itemid="{{shield.id}}" src = "{{shield.item.picture.url}}" width = "100" height = "100">
+                                    <br/>
+                                    {% endif %}
+                                    {% if avatar.user != user %}
+                                        <img  src = "{{shield.item.picture.url}}" width = "100" height = "100">
+                                    {% endif %}
+                                {% else %}
+                                    <img src = "{% static "images/shield.jpg" %}" width = "100" height = "100">
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4 col-xs-offset-4">
 
-            {% else %}
-                <img src = "{% static "images/blank_item.jpg" %}" width = "100" height = "100">
-            {% endif %}
-        </div>
-        <div class="col-xs-4 ">
-            Shield : <br/>
-            {% if shield %}
-                <img src = "{{shield.item.picture.url}}" width = "100" height = "100">
-                <br/>
+                                {% if boots %}
+                                    {% if avatar.user == user %}
+                                    <img class="unequip" data-itemid="{{boots.id}}"  src = "{{boots.item.picture.url}}" width = "100" height = "100">
+                                    <br/>
+                                    {% endif %}
+                                    {% if avatar.user != user %}
+                                        <img src = "{{boots.item.picture.url}}" width = "100" height = "100">
+                                    {% endif %}
+                                {% else %}
+                                    <img src = "{% static "images/boots.jpg" %}" width = "100" height = "100">
+                                {% endif %}
+                            </div>
+                        </div>
 
-                <button class="unequip" data-itemid="{{shield.id}}" type="button">Unequip</button>
-
-            {% else %}
-                <img src = "{% static "images/blank_item.jpg" %}" width = "100" height = "100">
-            {% endif %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-4 col-xs-offset-4">
-            Boots : <br/>
-            {% if boots %}
-                <img src = "{{boots.item.picture.url}}" width = "100" height = "100">
-                <br/>
-
-                <button class="unequip" data-itemid="{{boots.id}}" type="button">Unequip</button>
-
-            {% else %}
-                <img src = "{% static "images/blank_item.jpg" %}" width = "100" height = "100">
-            {% endif %}
-        </div>
-    </div>
-</div>
 
 
     <div class="row">
 		<div class="col-xs-12">
-            Cash:{{ avatar.cash }} gold<br />
-			Inventory:<br />
-			<ul>
-			{% for item in inventory_items %}
-				<li>
-					{{ item.item.name }} : {{ item.item.attack }} attack , {{ item.item.deffence }} defence
-							<button class="equip" data-itemid="{{item.id}}" type="button">Equip</button>
-                            <button class="sell" data-itemid="{{item.id}}" type="button">Sell</button>
-				</li>
-			{% endfor %}
-			</ul>
-			<br />
+            <div class="div1">
+                                <img src="{% static 'images/inventory.jpg' %}" style="position: absolute; top: 60px; left: -20px; width:560px; height:200px;"/>
+                             </div>
+
+                                 {% for item in inventory_items %}
+
+                                        <div class="div2">
+                                            <img class="equip" data-itemid="{{item.id}}" src = "{{item.item.picture.url}}" height="100"  width = "140" style="position: absolute; top: {{ forloop.counter0|mulTop:60 }}px; left: {{ forloop.counter0|mulLeft:140|add:-20 }}px;">
+                                        </div>
+
+
+                                {% endfor %}
+
+                             </div>
 		</div>
 	</div>
 </div>
