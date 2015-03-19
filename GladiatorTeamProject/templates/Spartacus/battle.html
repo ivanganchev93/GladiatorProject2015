@@ -92,8 +92,8 @@
         <table class="table">
             <tr><td>{{ you.user.username }}  hits {{opponent.user.username}}</td><td>{{opponent.user.username}} receives {{ round.youDamage }} damage </td></tr>
             <tr><td>{{opponent.user.username}} hits {{ you.user.username }}</td><td>{{ you.user.username }} receives {{ round.opponentDamage }} damage </td></tr>
-            <tr><td>{{ you.user.username }}  critically hits {{opponent.user.username}}</td><td>{{opponent.user.username}} receives critical <strong>{{ round.youDamage }} damage</strong> </td></tr>
-            <tr><td>{{opponent.user.username}} critically hits {{ you.user.username }}</td><td>{{ you.user.username }} receives critical <strong>{{ round.opponentDamage }} damage</strong> </td></tr>
+            <tr><td>{{ you.user.username }}  critically hits {{opponent.user.username}}</td><td>{{opponent.user.username}} receives critical <strong>{{ round.youCritical }} damage</strong> </td></tr>
+            <tr><td>{{opponent.user.username}} critically hits {{ you.user.username }}</td><td>{{ you.user.username }} receives critical <strong>{{ round.opponentCritical }} damage</strong> </td></tr>
             <tr><td>{{ you.user.username }} health after {{ round.roundN }} round: {{ round.youHealth }}</td><td>{{ opponent.user.username }} health after {{ round.roundN }} round: {{ round.opponentHealth }}</td></tr>
         </table>
     </div>

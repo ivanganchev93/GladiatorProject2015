@@ -42,32 +42,43 @@ def fight(you, opponent):
         youDoubleHitChance = (youHitChance * (you.agility / doubleHitRatio))
         opponentDoubleHitChance = (opponentHitChance * (opponent.agility / doubleHitRatio))
 
-
         # damage
-        youDamage = (youAttack + opponentDeffence) / opponentDeffence
-        opponentDamage = (opponentAttack + youDeffence) / youDeffence
-        criticalYou = 0
-        opponentCritical = 0
-        round=1
-        while youHealth > 0 and opponentHealth > 0:
+        if(youAttack > opponentDeffence):
+            youDamageFactor = youAttack - opponentDeffence
+        else:
+            youDamageFactor = 5
+
+        if(opponentAttack > youDeffence):
+            opponentDamageFactor = opponentAttack - youDeffence
+        else:
+            opponentDamageFactor = 5
+
+        round = 0
+        while youHealth > 0 and opponentHealth > 0 and round <= 20:
+            youDamage = 0
+            youCritical = 0
+            opponentDamage = 0
+            opponentCritical = 0
 
             if randint(0,100) <= int(youHitChance):
+                youDamage = youDamageFactor * ((randint(85,125))/100.0)
                 opponentHealth -= youDamage
 
             if randint(0,100) <= int(youDoubleHitChance):
-                criticalYou = youDamage*2
-                opponentHealth -= criticalYou
+                youCritical = (youDamageFactor * ((randint(85,125))/100.0)) * 2
+                opponentHealth -= youCritical
 
             if randint(0,100) <= int(opponentHitChance):
+                opponentDamage = opponentDamageFactor * ((randint(85,125))/100.0)
                 youHealth -= opponentDamage
+
             if randint(0,100) <= int(opponentDoubleHitChance):
-                opponentCritical = opponentDamage * 2
+                opponentCritical = (opponentDamageFactor * ((randint(85,125))/100.0)) * 2
                 youHealth -=  opponentCritical
 
-            rounds.append({'youDamage': youDamage, 'opponentHealth': opponentHealth, 'criticalDamage': criticalYou,
+            rounds.append({'youDamage': youDamage, 'opponentHealth': opponentHealth, 'youCritical': youCritical,
                            'youHealth': youHealth, 'opponentDamage': opponentDamage,
                            'opponentCritical': opponentCritical, 'roundN': round})
-
             round+=1
 
         fightData["rounds"]=rounds
@@ -92,7 +103,7 @@ def fight(you, opponent):
             fightData["stats"]["deffence"]=2
             fightData["stats"]["strength"]=2
             fightData["stats"]["agility"]=2
-            fightData["stats"]["intelligence"]=2
+            fightData["stats"]["intelligence"]=1
 
             you.save()
             opponent.save()
@@ -218,7 +229,7 @@ def avatar_view(request, name):
     try:
         user = User.objects.get(username = name)
         avatar = Avatar.objects.get(user = user)
-        health = avatar.strength*100;
+        health = avatar.strength*25;
         
         context_dict.update(getItems(avatar))
         
