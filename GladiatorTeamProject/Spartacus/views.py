@@ -313,18 +313,25 @@ def market(request):
     context_dict = {}
     try:
         avatar = Avatar.objects.get(user = request.user)
+
         items = Item.objects.order_by('-price')
         context_dict['items'] = items
         
         if request.method == 'POST':
+            # avatar cannot have more than 8 items in inventory
+            inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
             item_name = request.POST['item']
             item = Item.objects.get(name = item_name)
             if item.price <= avatar.cash:
-                #create an AvatarItem instance if the avatar has enough money
-                avatarItem = AvatarItem.objects.create(item = item, avatar = avatar)
-                avatar.cash = avatar.cash - item.price
-                avatar.save()
-                context_dict["bought"] = item.name
+                if(len(inventory_items) < 8):
+                    #create an AvatarItem instance if the avatar has enough money
+                    avatarItem = AvatarItem.objects.create(item = item, avatar = avatar)
+                    avatar.cash = avatar.cash - item.price
+                    avatar.save()
+                    context_dict["bought"] = item.name
+                else: context_dict["bought"] = "full inventory"
+
+
             else:
                 context_dict["bought"] = "Insufficient cash"
     except:
@@ -364,17 +371,23 @@ def equip_item(request):
 @login_required
 def unequip_item(request):
     item_id = None
+    context_dict = {}
+
     if request.method == 'GET':
         item_id = request.GET['item_id']
 
     if item_id:
         item = AvatarItem.objects.get(id = item_id)
         avatar = item.avatar
-        if item:
-            item.equiped = False
-            item.save()
+        inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
+        if(len(inventory_items) < 8):
+            if item:
+                item.equiped = False
+                item.save()
+        else:
+            context_dict["full"] = True
 
-    context_dict = getItems(avatar)
+    context_dict.update(getItems(avatar))
     
     return render(request, 'Spartacus/item_list.html', context_dict)
     
