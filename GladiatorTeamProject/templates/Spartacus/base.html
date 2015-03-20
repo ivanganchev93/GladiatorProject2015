@@ -17,9 +17,10 @@
     </head>
     
     <body>
-        <div>
-            {% block body_block %}{% endblock %}
-        </div>   
+                    <div class="wrapper">
+                    {% block body_block %}{% endblock %}
+
+
         <hr />
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container-fluid">
@@ -49,6 +50,7 @@
 				</div>
 			</div>
         </div>
+    </div>
     <!-- Javascript, JQuery, Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% static "js/ajax.js" %}"></script>

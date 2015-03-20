@@ -1,4 +1,4 @@
-
+{% load staticfiles %}
 
 table{
 	table-layout: fixed;
@@ -33,3 +33,11 @@ div#leaderboard {
 	height: 25px;
 
 }
+
+
+.wrapper{background: url("/images/index.jpg' %}") no-repeat   center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;}
+
