@@ -11,5 +11,6 @@ urlpatterns = patterns('',
         url(r'^leaderboard/$', views.leaderboard, name='leaderboard'),
         url(r'^equip_item/$', views.equip_item, name='equip_item'),
         url(r'^unequip_item/$', views.unequip_item, name='unequip_item'),
+        url(r'^unequip_item_market/$', views.unequip_item_market, name='unequip_item_market'),
         url(r'^questing/$', views.questing, name='questing'),
         url(r'^sell_item/$', views.sell_item, name='sell_item'))

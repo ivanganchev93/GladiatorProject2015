@@ -174,6 +174,12 @@ def market(request):
     try:
         avatar = Avatar.objects.get(user = request.user)
 
+        # Data for avatar view
+        health = avatar.strength*25;
+        context_dict.update(getItems(avatar))
+        context_dict['health']= health
+        #
+
         items = Item.objects.order_by('-price')
         context_dict['items'] = items
         
@@ -250,7 +256,30 @@ def unequip_item(request):
     context_dict.update(getItems(avatar))
     
     return render(request, 'Spartacus/item_list.html', context_dict)
-    
+
+@login_required
+def unequip_item_market(request):
+    item_id = None
+    context_dict = {}
+
+    if request.method == 'GET':
+        item_id = request.GET['item_id']
+
+    if item_id:
+        item = AvatarItem.objects.get(id = item_id)
+        avatar = item.avatar
+        inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
+        if(len(inventory_items) < 8):
+            if item:
+                item.equiped = False
+                item.save()
+        else:
+            context_dict["full"] = True
+
+    context_dict.update(getItems(avatar))
+
+    return render(request, 'Spartacus/item_list_market.html', context_dict)
+
 @login_required
 def questing(request):
     context_dict = {}
@@ -307,7 +336,7 @@ def sell_item(request):
     item_id = None
     if request.method == 'GET':
         item_id = request.GET['item_id']
-        
+
     if item_id:
         item = AvatarItem.objects.get(id = item_id)
         avatar = item.avatar
@@ -318,5 +347,5 @@ def sell_item(request):
     
     context_dict = getItems(avatar)
     
-    return render(request, 'Spartacus/item_list.html', context_dict)
+    return render(request, 'Spartacus/item_list_market.html', context_dict)
     

@@ -1,46 +1,9 @@
-{% extends 'Spartacus/base.html' %}
 {% load staticfiles %}
 {% load app_filters %}
 
-{% block title %}Market{% endblock %}
 
-{% block body_block %}
 
-    <div class="container">
-
-        <div class="row">
-
-            <div class="col-xs-12 col-md-6 col-lg-4">
-                {% if bought == "Insufficient cash" %}
-                    You don`t have enough money.
-                {% elif bought == "full inventory" %}
-                    Your inventory is already full.
-                {% elif bought %}
-                    You successfuly bought {{ bought }}.
-                {% endif %}
-                <br/><br/>
-                <table class="table" style=" table-layout: auto">
-                    <th>Name:</th>
-                    <th>Picture:</th>
-                    <th>Gold:</th>
-                    <th>Buy:</th>
-                    {% for item in items %}
-                        <tr>
-                            <td>{{ item.name }} <br/>Attack: {{ item.attack }} <br/>Defence: {{ item.deffence }}</td>
-                            <td><img src = "{{item.picture.url}}" width = "100" height = "100"></td>
-                            <td>{{ item.price }} gold</td>
-                            <td>
-                                <form method="post" action="{% url 'market' %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" value="{{ item.name }}" name = "item">
-                                    <input type="submit" value="Buy" name = "Submit">
-                                </form></td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-			<div class="col-xs-12 col-md-6 col-lg-4 col-lg-offset-2">
-        `       <div id="all_items_market">
+     <div id="all_items_market">
 
                     <div class="row">
 
@@ -163,9 +126,10 @@
                         </div>
                     </div>
                 </div>
-			
-			</div>
-        </div>
-    </div>
 
-{% endblock %}
+
+</div>
+
+<!-- TOTAL BS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="{% static "js/ajax.js" %}"></script>
