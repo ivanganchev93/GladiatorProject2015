@@ -80,7 +80,7 @@ def fight(you, opponent):
         fightData["stats"]={}
 
         #victory
-        if youHealth > opponentHealth:
+        if youHealth - opponentHealth > 50:
             you.points += 50
             you.victories += 1
 
@@ -107,7 +107,7 @@ def fight(you, opponent):
             return fightData
 
         #defeat
-        elif youHealth < opponentHealth:
+        elif youHealth - opponentHealth < -50:
             #updating stats
             you.attack += 1
             you.deffence += 1

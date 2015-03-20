@@ -25,7 +25,7 @@ def getItems(avatar):
                 context_dict['shield'] = equiped_item
             elif equiped_item.item.itemType == "boots":
                 context_dict['boots'] = equiped_item
-        
+
         context_dict['equiped_items'] = equiped_items
         context_dict['inventory_items'] = inventory_items
         context_dict['avatar'] = avatar
@@ -70,7 +70,7 @@ def add_profile(request):
 
 def avatar_view(request, name):
     context_dict = {}
-    
+
     #Allowed to fight variables here
     timePassed = True
 
@@ -86,20 +86,20 @@ def avatar_view(request, name):
             request.session['fightStartedAt']=0
         context_dict['time_left'] = waitTime - time_elapsed
     context_dict['time_passed'] = timePassed
-    
+
     try:
         user = User.objects.get(username = name)
         avatar = Avatar.objects.get(user = user)
         health = avatar.strength*25;
-        
+
         context_dict.update(getItems(avatar))
-        
+
         context_dict['health']= health
     except:
         print "Query fail Avatar_view"
     return render(request, 'Spartacus/avatar_view.html', context_dict)
 
-@login_required    
+@login_required
 def arena(request):
     context_dict = {}
     try:
@@ -141,7 +141,7 @@ def arena(request):
     context_dict['time_passed']=timePassed
 
     return render(request, 'Spartacus/arena.html', context_dict)
-    
+
 @login_required
 def battle(request, opponent):
     context_dict = {}
@@ -182,7 +182,7 @@ def market(request):
 
         items = Item.objects.order_by('-price')
         context_dict['items'] = items
-        
+
         if request.method == 'POST':
             # avatar cannot have more than 8 items in inventory
             inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
@@ -203,7 +203,7 @@ def market(request):
     except:
         print "Query fail market"
     return render (request, 'Spartacus/market.html', context_dict)
-    
+
 def leaderboard(request):
     context_dict = {}
     try:
@@ -220,16 +220,16 @@ def equip_item(request):
     item_id = None
     if request.method == 'GET':
         item_id = request.GET['item_id']
-    
+
     if item_id:
         item = AvatarItem.objects.get(id = item_id)
         avatar = item.avatar
         if item:
             item.equiped = True
             item.save()
-     
+
     context_dict = getItems(avatar)
-    
+
     return render(request, 'Spartacus/item_list.html', context_dict)
 
 
@@ -254,7 +254,7 @@ def unequip_item(request):
             context_dict["full"] = True
 
     context_dict.update(getItems(avatar))
-    
+
     return render(request, 'Spartacus/item_list.html', context_dict)
 
 @login_required
@@ -330,7 +330,7 @@ def questing(request):
     except:
         print "Query fail questing"
     return render(request, 'Spartacus/questing.html', context_dict)
-    
+
 @login_required
 def sell_item(request):
     item_id = None
@@ -344,8 +344,7 @@ def sell_item(request):
     avatar.cash += sell_amount
     item.delete()
     avatar.save()
-    
+
     context_dict = getItems(avatar)
-    
+
     return render(request, 'Spartacus/item_list_market.html', context_dict)
-    
