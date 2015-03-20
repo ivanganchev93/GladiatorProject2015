@@ -25,9 +25,9 @@ table tr td:first-child::before {
 
 
 
-
-{% if time_passed %}
 <div class="container">
+{% if time_passed %}
+
 	<div class="row" id="split">
 	</div>
 	<div class="row">
@@ -92,10 +92,10 @@ table tr td:first-child::before {
 		</div>
 
 	</div>
-</div>
+
 
 {% else %}
         <div align="center"><h2>Please wait for {{ time_left }} seconds.</h2></div>
 {% endif %}
-
+</div>
 {% endblock %}

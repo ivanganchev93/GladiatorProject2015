@@ -2,136 +2,136 @@
 {% load staticfiles %}
 
 {% block title %}Questing{% endblock %}
-    
+
 {% block body_block %}
-    {% if time_passed %}
-    {% if questing %}
-        {% if success %}
-            <div align='center'>You have succeeded in your quest:<div>
-			{% if quest_name == "money" %}
-				<br>aquired 100 gold!
-			{% elif quest_name == "workout" %}
-				<br>gained +2 strength
-				<br>lost -50 gold</div>
-			{% elif quest_name == "precission" %}
-				<br>gained +2 agility
-				<br>lost -50 gold</div>
-			{% elif quest_name == "learn" %}
-				<br>gained +1 intelligence
-				<br>lost -50 gold</div>
-			{% endif %}
-			
+    <div class = "container">
+        {% if time_passed %}
+            {% if questing %}
+                {% if success %}
+                    <div align='center'>You have succeeded in your quest:
+                        {% if quest_name == "money" %}
+                            <br>aquired 100 gold!
+                        {% elif quest_name == "workout" %}
+                            <br>gained +2 strength
+                            <br>lost -50 gold
+                        {% elif quest_name == "precission" %}
+                            <br>gained +2 agility
+                            <br>lost -50 gold
+                        {% elif quest_name == "learn" %}
+                            <br>gained +1 intelligence
+                            <br>lost -50 gold
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div align='center' style="color:red">You have failed in your quest</div>
+                {% endif %}
+
+
+
+
+            {% else %}
+
+                <div class="row" id="split">
+                </div>
+                <div class="row">
+                    <table class="table">
+                        <th style="text-align: center">Select a Quest</th>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="row">
+                            <div class="col-xs-6 col-xs-offset-3">
+                                <table class="table">
+                                    <th style="text-align: center">Body Parts</th>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div align="center"><img src = "{% static 'images/bodyParts.jpg' %}" width = "300" height = "200"></div>
+                        <br>
+                        <form method="post" class="form-inline"  action="{% url 'questing' %}">
+                            {% csrf_token %}
+                            <div align="center"><p>Clean the body parts in the colloseum
+                                <br>+100 gold</div>
+                            <input type="hidden"  value="money" name = "quest_name">
+                            <br>
+                            <div align="center"><input type="submit"  class="form-control" value="Attempt" name = "Submit"></div>
+                            </p>
+                        </form>
+
+                    </div>
+
+                    <div class="col-xs-5">
+                        <div class="row">
+                            <div class="col-xs-6 col-xs-offset-3">
+                                <table class="table">
+                                    <th style="text-align: center">The Mercenaries</th>
+                                </table>
+                            </div>
+                        </div>
+                        <div align="center"><img src = "{% static 'images/mercenary.jpg' %}" width = "300" height = "200"></div>
+
+                        <br>
+                        <form method="post" class="form-inline"  action="{% url 'questing' %}">
+                            {% csrf_token %}
+                            <div align="center"><p>Test your might against mercenaries for a fee
+                                <br>+2 strength
+                                <br>-50 gold</div>
+                            <input type="hidden" value="workout" name = "quest_name">
+                            <div align="center"><input type="submit" class="form-control" value="Attempt" name = "Submit"></div>
+                            </p>
+                        </form>
+                    </div>
+
+                    <div class="col-xs-6">
+                        <div class="row">
+                            <div class="col-xs-6 col-xs-offset-3">
+                                <table class="table">
+                                    <th style="text-align: center">Precision</th>
+                                </table>
+                            </div>
+                        </div>
+                        <div align="center"><img src = "{% static 'images/precision.jpg' %}" width = "300" height = "200"></div>
+
+                        <br>
+                        <form method="post" class="form-inline" action="{% url 'questing' %}">
+                            {% csrf_token %}
+                            <div align="center"><p>Practice your precision with the bow of a mercenary
+                                <br>+2 agility
+                                <br>-50 gold</div>
+                            <input type="hidden" value="precission" name = "quest_name">
+                            <div align="center"><input type="submit" class="form-control" value="Attempt" name = "Submit"></div>
+                            </p>
+                        </form>
+                    </div>
+
+                    <div class="col-xs-5">
+                        <div class="row">
+                            <div class="col-xs-6 col-xs-offset-3">
+                                <table class="table">
+                                    <th style="text-align: center">Philosophy</th>
+                                </table>
+                            </div>
+                        </div>
+                        <div align="center"><img src = "{% static 'images/philosophy.jpg' %}" width = "300" height = "200"></div>
+
+                        <br>
+                        <form method="post" class="form-inline" action="{% url 'questing' %}">
+                            {% csrf_token %}
+                            <div align="center"><p>Study philosophy with a tutor for 50 gold
+                                <br>+1 intelligence
+                                <br>-50 gold</div>
+                            <input type="hidden" value="learn" name = "quest_name">
+                            <div align="center"><input type="submit" class="form-control" value="Attempt" name = "Submit"></div>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+
+            {% endif %}
         {% else %}
-            <div align='center' style="color:red">You have failed in your quest</div>
-		{% endif %}
-        
-        
-        
-    
-    {% else %}
-        <div class="container">
-			<div class="row" id="split">
-			</div>
-            <div class="row">
-                <table class="table">
-                    <th style="text-align: center">Select a Quest</th>
-                </table>
-            </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    <div class="row">
-                        <div class="col-xs-6 col-xs-offset-3">
-                            <table class="table">
-                                <th style="text-align: center">Body Parts</th>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div align="center"><img src = "{% static 'images/bodyParts.jpg' %}" width = "300" height = "200"></div>
-                    <br>
-                    <form method="post" class="form-inline"  action="{% url 'questing' %}">
-                    {% csrf_token %}
-                    <div align="center"><p>Clean the body parts in the colloseum 
-					<br>+100 gold</div>
-                    <input type="hidden"  value="money" name = "quest_name">
-                    <br>
-                    <div align="center"><input type="submit"  class="form-control" value="Attempt" name = "Submit"></div>
-                    </p>
-                    </form>
-
-                </div>
-
-                <div class="col-xs-5">
-                    <div class="row">
-                        <div class="col-xs-6 col-xs-offset-3">
-                            <table class="table">
-                                <th style="text-align: center">The Mercenaries</th>
-                            </table>
-                        </div>
-                    </div>
-                    <div align="center"><img src = "{% static 'images/mercenary.jpg' %}" width = "300" height = "200"></div>
-
-                    <br>
-                    <form method="post" class="form-inline"  action="{% url 'questing' %}">
-                    {% csrf_token %}
-                    <div align="center"><p>Test your might against mercenaries for a fee 
-					<br>+2 strength
-					<br>-50 gold</div>
-                    <input type="hidden" value="workout" name = "quest_name">
-                    <div align="center"><input type="submit" class="form-control" value="Attempt" name = "Submit"></div>
-                    </p>
-                    </form>
-                </div>
-
-                <div class="col-xs-6">
-                    <div class="row">
-                        <div class="col-xs-6 col-xs-offset-3">
-                            <table class="table">
-                                <th style="text-align: center">Precision</th>
-                            </table>
-                        </div>
-                    </div>
-                    <div align="center"><img src = "{% static 'images/precision.jpg' %}" width = "300" height = "200"></div>
-
-                    <br>
-                    <form method="post" class="form-inline" action="{% url 'questing' %}">
-                    {% csrf_token %}
-                    <div align="center"><p>Practice your precision with the bow of a mercenary 
-					<br>+2 agility
-					<br>-50 gold</div>
-                    <input type="hidden" value="precission" name = "quest_name">
-                    <div align="center"><input type="submit" class="form-control" value="Attempt" name = "Submit"></div>
-                    </p>
-                    </form>
-                </div>
-
-                <div class="col-xs-5">
-                    <div class="row">
-                        <div class="col-xs-6 col-xs-offset-3">
-                            <table class="table">
-                                <th style="text-align: center">Philosophy</th>
-                            </table>
-                        </div>
-                    </div>
-                    <div align="center"><img src = "{% static 'images/philosophy.jpg' %}" width = "300" height = "200"></div>
-
-                    <br>
-                    <form method="post" class="form-inline" action="{% url 'questing' %}">
-                    {% csrf_token %}
-                    <div align="center"><p>Study philosophy with a tutor for 50 gold
-					<br>+1 intelligence
-					<br>-50 gold</div>
-                    <input type="hidden" value="learn" name = "quest_name">
-                    <div align="center"><input type="submit" class="form-control" value="Attempt" name = "Submit"></div>
-                    </p>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-{% endif %}
-{% else %}
-    <div align="center"><h2>You can attempt a new quest in {{ time_left }} seconds!</h2></div>
-{% endif %}
-
+            <div align="center"><h2>You can attempt a new quest in {{ time_left }} seconds!</h2></div>
+        {% endif %}
+    </div>
 {% endblock %}
