@@ -17,7 +17,12 @@
     </head>
     
     <body>
-                    <div class="wrapper">
+                    <div class="col-md-12 col-sm-12 col-xs-12" class="img-responsive" alt="Responsive image"
+                         style="background:red;color:white; background:url('{% static 'images/index.jpg' %}') no-repeat   center center fixed;
+                         -webkit-background-size: cover;
+                        -moz-background-size: cover;
+                        -o-background-size: cover;
+                        background-size: cover;">
                     {% block body_block %}{% endblock %}
 
 

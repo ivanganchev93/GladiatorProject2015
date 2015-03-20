@@ -35,7 +35,7 @@ div#leaderboard {
 }
 
 
-.wrapper{background: url("/images/index.jpg' %}") no-repeat   center center fixed;
+.wrapper{background: url("/images/index.jpg") no-repeat   center center fixed;
 -webkit-background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover;
