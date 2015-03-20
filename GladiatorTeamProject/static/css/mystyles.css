@@ -36,6 +36,10 @@ div#split{
 
 }
 
+div.container {
+    background: rgba(15,15,15, 0.7)!important;
+}
+
 
 .wrapper{background: url("/images/index.jpg") no-repeat   center center fixed;
 -webkit-background-size: cover;
