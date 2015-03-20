@@ -133,5 +133,5 @@ def add_item(name, price, itemType, attack, deffence, picture):
 
 # Start execution here!
 if __name__ == '__main__':
-    print "Starting Rango population script..."
+    print "Starting Spartacus population script..."
     populate()
