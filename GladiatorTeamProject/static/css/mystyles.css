@@ -4,7 +4,7 @@ table{
 	table-layout: fixed;
 }
 table,th, td, tr{
-	background-color: white;
+	background-color: grey;
 	color: black;
 	border: 1px solid black;
 	white-space: nowrap;
@@ -31,7 +31,7 @@ div.div2 {
 width:700px; height:250px; margin:10px 250px; opacity:0.8; filter:alpha(opacity=40); 
 
 }
-div#leaderboard {
+div#split{
 	height: 25px;
 
 }
