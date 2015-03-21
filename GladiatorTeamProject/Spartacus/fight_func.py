@@ -87,7 +87,8 @@ def fight(you, opponent):
             cashWon = opponent.cash / 10.0  # 10% of the opponent's cash
             you.cash += cashWon + 30  #30 cash extra for a victory
             opponent.cash -= cashWon
-            
+            opponent.points += 20
+
             #updating stats
             you.attack += 2
             you.deffence += 2
@@ -113,6 +114,10 @@ def fight(you, opponent):
             you.deffence += 1
             you.points += 20
             you.save()
+            opponent.victories += 1
+            opponent.points += 50
+            opponent.save()
+
             fightData["stats"]['result']=-1
             fightData["stats"]["attack"]=1
             fightData["stats"]["deffence"]=1
