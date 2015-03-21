@@ -36,7 +36,7 @@
                 <div class="row">
                     <div class="col-xs-11 col-xs-offset-1" style="border: 2px solid black;">
                         <div class="row">
-                            <div class="col-xs-4 col-xs-offset-3 col-sm-4 col-sm-offset-5 col-lg-4 col-lg-offset-4">
+                            <div class="col-xs-4 col-xs-offset-4 col-lg-4 col-lg-offset-4">
 
                                 {% if helmet %}
                                 {% if avatar.user == user %}
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-4 col-xs-offset-3 col-sm-4 col-sm-offset-1 col-lg-2 col-lg-offset-1">
+                            <div class="col-xs-4 col-lg-2 col-lg-offset-1">
 
                                 {% if sword %}
                                 {% if avatar.user == user %}
@@ -75,7 +75,7 @@
                                 <div class="row" id="split">
                                 </div>
                             </div>
-                            <div class="col-xs-4 col-xs-offset-3 col-sm-4 col-sm-offset-0 col-lg-2 col-lg-offset-1">
+                            <div class="col-xs-4 col-lg-2 col-lg-offset-1">
 
                                 {% if armor %}
                                 {% if avatar.user == user %}
@@ -93,7 +93,7 @@
                                 <div class="row" id="split">
                                 </div>
                             </div>
-                            <div class="col-xs-4 col-xs-offset-3 col-sm-3 col-sm-offset-0 col-lg-2 col-lg-offset-1">
+                            <div class="col-xs-4 col-lg-2 col-lg-offset-1">
 
                                 {% if shield %}
                                 {% if avatar.user == user %}
@@ -102,8 +102,8 @@
                                 <br/>
                                 {% endif %}
                                 {% if avatar.user != user %}
-                                <img  data-toggle="tooltip" data-placement="left" title="{{shield.item.name}} &#013;Attack: {{shield.item.attack}} &#013;Defence: {{shield.item.deffence}}"
-                                      src = "{{shield.item.picture.url}}" width = "100" height = "100">
+                                <img data-toggle="tooltip" data-placement="left" title="{{shield.item.name}} &#013;Attack: {{shield.item.attack}} &#013;Defence: {{shield.item.deffence}}"
+                                     src = "{{shield.item.picture.url}}" width = "100" height = "100">
                                 {% endif %}
                                 {% else %}
                                 <img src = "{% static "images/shield.jpg" %}" width = "100" height = "100">
@@ -113,12 +113,12 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-4 col-xs-offset-3 col-sm-4 col-sm-offset-5">
+                            <div class="col-xs-4 col-xs-offset-4">
 
                                 {% if boots %}
                                 {% if avatar.user == user %}
                                 <img data-toggle="tooltip" data-placement="left" title="{{boots.item.name}} &#013;Attack: {{boots.item.attack}} &#013;Defence: {{boots.item.deffence}}"
-                                     class="unequip" data-itemid="{{boots.id}}"  src = "{{boots.item.picture.url}}" width = "100" height = "100">
+                                     class="unequip" data-itemid="{{boots.id}}" src = "{{boots.item.picture.url}}" width = "100" height = "100">
                                 <br/>
                                 {% endif %}
                                 {% if avatar.user != user %}
@@ -141,15 +141,14 @@
                             <img src="{% static 'images/inventory.jpg' %}" style="position: absolute; top: 60px; left: -20px; width:560px; height:200px;"/>
                         </div>
                         {% for item in inventory_items %}
-
                         <div class="div2">
                             {% if avatar.user == user %}
                             <img data-toggle="tooltip" data-placement="left" title="{{item.item.name}} &#013;Attack: {{item.item.attack}} &#013;Defence: {{item.item.deffence}}"
-                                 class="equip" data-itemid="{{item.id}}" src = "{{item.item.picture.url}}" height="100"  width = "140"
+                                 class="equip" data-itemid="{{item.id}}" src = "{{item.item.picture.url}}" height="100" width = "140"
                                  style="position: absolute; top: {{ forloop.counter0|mulTop:60 }}px; left: {{ forloop.counter0|mulLeft:140|add:-20 }}px;">
                             {% else%}
                             <img data-toggle="tooltip" data-placement="left" title="{{item.item.name}} &#013;Attack: {{item.item.attack}} &#013;Defence: {{item.item.deffence}}"
-                                 src = "{{item.item.picture.url}}" height="100"  width = "140"
+                                 src = "{{item.item.picture.url}}" height="100" width = "140"
                                  style="position: absolute; top: {{ forloop.counter0|mulTop:60 }}px; left: {{ forloop.counter0|mulLeft:140|add:-20 }}px;">
                             {% endif%}
                         </div>
