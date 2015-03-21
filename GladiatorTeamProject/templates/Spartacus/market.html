@@ -1,6 +1,7 @@
 {% extends 'Spartacus/base.html' %}
 {% load staticfiles %}
 {% load app_filters %}
+{% load Spartacus_extras %}
 
 {% block title %}Market{% endblock %}
 
@@ -12,13 +13,7 @@
         <div class="row">
 
             <div class="col-xs-12 col-md-6 col-lg-4">
-                {% if bought == "Insufficient cash" %}
-                    You don`t have enough money.
-                {% elif bought == "full inventory" %}
-                    Your inventory is already full.
-                {% elif bought %}
-                    You successfuly bought {{ bought }}.
-                {% endif %}
+
                 <br/><br/>
                 <table class="table" style=" table-layout: auto">
                     <th>Name:</th>
@@ -42,99 +37,8 @@
             </div>
 			<div class="col-xs-12 col-md-6 col-lg-5 col-lg-offset-1">
                 <div id="all_items_market">
-
-                    <div class="row">
-						 <div class="col-xs-11 col-xs-offset-1" style="border: 2px solid black;">
-                        <div class="row">
-                            <div class="col-xs-4 col-xs-offset-3 col-sm-4 col-sm-offset-5 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
-                                {% if helmet %}
-                                        <img data-toggle="tooltip" data-placement="left" title="{{helmet.item.name}} &#013;Attack: {{helmet.item.attack}} &#013;Defence: {{helmet.item.deffence}}"
-                                             class="unequip_market" data-itemid="{{helmet.id}}" src = "{{helmet.item.picture.url}}" width = "100" height = "100">
-                                        <br>
-                                {% else %}
-                                    <img src = "{% static "images/helmet.jpg" %}" width = "100" height = "100">
-                                {% endif %}
-								<div class="row" id="split">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                             <div class="col-xs-4 col-xs-offset-3 col-sm-4 col-sm-offset-1 col-md-2 col-md-offset-1">
-
-                                {% if sword %}
-                                        <img data-toggle="tooltip" data-placement="left" title="{{sword.item.name}} &#013;Attack: {{sword.item.attack}} &#013;Defence: {{sword.item.deffence}}"
-                                             class="unequip_market" data-itemid="{{sword.id}}" src = "{{sword.item.picture.url}}" width = "100" height = "100">
-                                        <br/>
-                                {% else %}
-                                    <img src = "{% static "images/sword.jpg" %}" width = "100" height = "100">
-                                {% endif %}
-								<div class="row" id="split">
-                                </div>
-
-                            </div>
-                            <div class="col-xs-4 col-xs-offset-3 col-sm-4 col-sm-offset-0 col-md-2 col-md-offset-1">
-
-                                {% if armor %}
-                                        <img data-toggle="tooltip" data-placement="left" title="{{armor.item.name}} &#013;Attack: {{armor.item.attack}} &#013;Defence: {{armor.item.deffence}}"
-                                             class="unequip_market" data-itemid="{{armor.id}}" src = "{{armor.item.picture.url}}" width = "100" height = "100">
-                                        <br/>
-                                {% else %}
-                                    <img src = "{% static "images/armour.jpg" %}" width = "100" height = "100">
-                                {% endif %}
-								<div class="row" id="split">
-                                </div>
-                            </div>
-                            <div class="col-xs-4 col-xs-offset-3 col-sm-3 col-sm-offset-0 col-md-2 col-md-offset-1">
-
-                                {% if shield %}
-                                        <img data-toggle="tooltip" data-placement="left" title="{{shield.item.name}} &#013;Attack: {{shield.item.attack}} &#013;Defence: {{shield.item.deffence}}"
-                                             class="unequip_market" data-itemid="{{shield.id}}" src = "{{shield.item.picture.url}}" width = "100" height = "100">
-                                        <br/>
-                                {% else %}
-                                    <img src = "{% static "images/shield.jpg" %}" width = "100" height = "100">
-                                {% endif %}
-								<div class="row" id="split">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-4 col-xs-offset-3 col-sm-4 col-sm-offset-5 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
-
-                                {% if boots %}
-                                        <img data-toggle="tooltip" data-placement="left" title="{{boots.item.name}} &#013;Attack: {{boots.item.attack}} &#013;Defence: {{boots.item.deffence}}"
-                                             class="unequip_market" data-itemid="{{boots.id}}"  src = "{{boots.item.picture.url}}" width = "100" height = "100">
-                                        <br/>
-                                {% else %}
-                                    <img src = "{% static "images/boots.jpg" %}" width = "100" height = "100">
-                                {% endif %}
-                            </div>
-                        </div>
-						</div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-lg-4 col-lg-offset-1 col-md-6 col-md-offset-1 col-xs-8 col-xs-offset-2">
-
-
-                            <div class="div1">
-                                <img src="{% static 'images/inventory.jpg' %}" style="position: absolute; top: 60px; left: -20px; width:560px; height:200px;"/>
-                            </div>
-                            {% for item in inventory_items %}
-                                <div class="div2">
-                                    <img data-toggle="tooltip" data-placement="left" title="{{item.item.name}} &#013;Attack: {{item.item.attack}} &#013;Defence: {{item.item.deffence}}"
-                                         class="sell" data-itemid="{{item.id}}" src = "{{item.item.picture.url}}" height="100"  width = "140"
-                                         style="position: absolute; top: {{ forloop.counter0|mulTop:60 }}px; left: {{ forloop.counter0|mulLeft:140|add:-20 }}px;">
-                                </div>
-                            {% endfor %}
-
-                        </div>
-
-                        <br />
-                        <br />
-                    </div>
+                    {% get_market_items %}
                 </div>
-
 			</div>
         </div>
     </div>

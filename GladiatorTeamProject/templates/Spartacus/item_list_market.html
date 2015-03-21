@@ -2,8 +2,14 @@
 {% load app_filters %}
 
 
-
 <div id="all_items_market">
+    {% if bought == "Insufficient cash" %}
+    You don`t have enough money.
+    {% elif bought == "full inventory" or full == True %}
+    Your inventory is already full.
+    {% elif bought %}
+    You successfuly bought {{ bought }}.
+    {% endif %}
     <div class="row">
         <div class="col-xs-11 col-xs-offset-1" style="border: 2px solid black;">
             <div class="row">

@@ -171,6 +171,8 @@ def battle(request, opponent):
 @login_required
 def market(request):
     context_dict = {}
+    context_dict["bought"] = False
+    context_dict["full"] = False
     try:
         avatar = Avatar.objects.get(user = request.user)
 
@@ -186,6 +188,7 @@ def market(request):
         if request.method == 'POST':
             # avatar cannot have more than 8 items in inventory
             inventory_items = AvatarItem.objects.filter(avatar = avatar).filter(equiped = False)
+
             item_name = request.POST['item']
             item = Item.objects.get(name = item_name)
             if item.price <= avatar.cash:
@@ -196,7 +199,6 @@ def market(request):
                     avatar.save()
                     context_dict["bought"] = item.name
                 else: context_dict["bought"] = "full inventory"
-
 
             else:
                 context_dict["bought"] = "Insufficient cash"
