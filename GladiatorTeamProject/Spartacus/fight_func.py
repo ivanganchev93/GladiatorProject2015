@@ -48,7 +48,7 @@ def fight(you, opponent):
         else:
             opponentDamageFactor = 5
 
-        round = 0
+        round = 1
         while youHealth > 0 and opponentHealth > 0 and round <= 20:
             youDamage = 0
             youCritical = 0
