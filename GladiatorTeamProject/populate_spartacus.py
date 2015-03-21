@@ -12,7 +12,9 @@ def populate():
     user3 = add_user("Tiberius", "tiberius@gmail.com", "12345")
     user4 = add_user("Trajan", "trajan@gmail.com", "12345")
     user5 = add_user("Augustus", "augustus@gmail.com", "12345")
+    test = add_user("test", "test@gmail.com", "test")
 
+    test_avatar = add_avatar(test, 30, 30, 20, 15 ,10, "profile_images/test.jpg")
     avatar1 = add_avatar(user1, 30, 30, 20, 15 ,10, "profile_images/leonid.jpg")
     avatar2 = add_avatar(user2, 40, 50, 20, 30 ,20, "profile_images/claudius.jpg")
     avatar3 = add_avatar(user3, 30, 30, 50, 45 ,20, "profile_images/tiberius.jpg")
@@ -150,6 +152,12 @@ def populate():
     add_avatar_item(sword1,avatar5, True)
     add_avatar_item(armor3,avatar5, False)
     add_avatar_item(shield3,avatar5, False)
+
+    add_avatar_item(boots1,test_avatar, False)
+    add_avatar_item(armor2,test_avatar, False)
+    add_avatar_item(sword1,test_avatar, False)
+    add_avatar_item(shield3,test_avatar, False)
+    add_avatar_item(helmet3,test_avatar, False)
 
 
 def add_avatar_item(item, avatar, equiped):
