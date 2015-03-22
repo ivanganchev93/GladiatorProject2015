@@ -133,6 +133,8 @@ def fight(you, opponent):
             you.strength += 1
             you.agility += 1
             you.points += 30
+            opponent.points += 30
+            opponent.save()
             you.save()
 
             fightData["stats"]["attack"]=1

@@ -3,12 +3,15 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from registration.backends.simple.views import RegistrationView
+from django.views.generic.base import RedirectView
+
 
 class MyRegistrationView(RegistrationView):
     def get_success_url(self,request, user):
         return '/Spartacus/add_profile'
 
 urlpatterns = patterns('',
+    url(r'^$', RedirectView.as_view(url='/Spartacus', permanent=False), name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^Spartacus/', include('Spartacus.urls')),
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),

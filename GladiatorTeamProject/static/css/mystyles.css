@@ -4,7 +4,7 @@ table{
 	table-layout: fixed;
 }
 table,th, td, tr{
-	background-color: grey;
+	background-color: #424242;
 	color: black;
 	border: 1px solid black;
 	white-space: nowrap;

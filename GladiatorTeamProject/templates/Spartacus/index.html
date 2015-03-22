@@ -5,6 +5,12 @@
 
 
 {% block body_block %}
-
-
+<div class = "container">
+    <div align = "center">
+        {% if user.is_authenticated %}
+        <h1> Welcome to Spartacus</h1>
+        {% else %}
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
