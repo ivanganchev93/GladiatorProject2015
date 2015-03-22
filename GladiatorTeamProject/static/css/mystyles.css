@@ -40,10 +40,24 @@ div.container {
     background: rgba(15,15,15, 0.8)!important;
 }
 
+td#battle {
+	text-align: center;
+	white-space: initial; 
+	overflow: initial;
+	text-overflow: initial;
+	
+}
+div#battle {
+	text-align: center;
+	white-space: initial; 
+	overflow: hidden;
+	text-overflow: hidden;
+	
+}
+
 
 .wrapper{background: url("/images/index.jpg") no-repeat   center center fixed;
 -webkit-background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover;
 background-size: cover;}
-

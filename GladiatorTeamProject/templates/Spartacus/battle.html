@@ -8,37 +8,37 @@
 
 
 {% if victory == 1 %}
-<div class="col-xs-4 col-xs-offset-4">
+<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3" align="center">
     <div class="panel panel panel-success">
             <!-- Default panel contents -->
-            <div class="panel panel-heading" align="center"><h1><strong>You Won !!!</strong></h1></div>
-            <div class="panel-body" align="center"><h4><strong>{{you.user.username}} vs {{opponent.user.username}}<br /></strong></h4>
+            <div class="panel panel-heading" id="battle"><h1><strong>You Won !!!</strong></h1></div>
+            <div class="panel-body" id="battle"><h4><strong>{{you.user.username}} vs {{opponent.user.username}}<br /></strong></h4>
                 <br></div>
 
 
         <!-- Table -->
-        <table class="table" >
+        <table class="table">
         </table>
-            <tr><td><strong>{{ you.user.username }}</strong> has received {{ stats.attack }} attack points </td></tr>
+            <tr><td id="battle"><strong>{{ you.user.username }}</strong> has received {{ stats.attack }} attack points </td></tr>
             <br>
-            <tr><br><td valign="center"><strong>{{ you.user.username }}</strong> has received {{ stats.deffence }} defence points </td></tr>
+            <tr><br><td id="battle"><strong>{{ you.user.username }}</strong> has received {{ stats.deffence }} defence points </td></tr>
             <br>
-            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.strength }} strength points </td></tr>
+            <tr><br><td id="battle"><strong>{{ you.user.username }}</strong> has received {{ stats.strength }} strength points </td></tr>
             <br>
-            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.agility }} agility points </td></tr>
+            <tr><br><td id="battle"><strong>{{ you.user.username }}</strong> has received {{ stats.agility }} agility points </td></tr>
             <br>
-            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.intelligence }} intelligence points </td></tr>
+            <tr><br><td id="battle"><strong>{{ you.user.username }}</strong> has received {{ stats.intelligence }} intelligence points </td></tr>
             <br>
         </table>
     </div>
 </div>
 {% elif victory == -1 %}
 
-<div class="col-xs-4 col-xs-offset-4">
+<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3" align="center">
     <div class="panel panel panel-danger">
             <!-- Default panel contents -->
-            <div class="panel panel-heading" align="center"><h1><strong>You lost</strong></h1></div>
-            <div class="panel-body" align="center">
+            <div class="panel panel-heading" align="center" id="battle"><h1><strong>You lost</strong></h1></div>
+            <div class="panel-body" align="center" id="battle">
                 <h4><strong>{{you.user.username}} vs {{opponent.user.username}}<br /></strong></h4>
                 <p>It looks like this opponent was too well prepared for this battle</p>
                 <br>
@@ -47,12 +47,12 @@
     </div>
 </div>
 {% else %}
-    <div class="col-xs-4 col-xs-offset-4">
-    <div class="panel panel panel-info">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3" align="center">
+    <div class="panel panel panel-info" id="battle">
             <!-- Default panel contents -->
-            <div class="panel panel-heading" align="center"><h1><strong>Draw</strong></h1></div>
+            <div class="panel panel-heading" align="center" id="battle"><h1><strong>Draw</strong></h1></div>
 
-            <div class="panel-body" align="center">  <h5><strong>{{you.user.username}} vs {{opponent.user.username}}<br /></strong></h5>
+            <div class="panel-body" align="center" id="battle">  <h5><strong>{{you.user.username}} vs {{opponent.user.username}}<br /></strong></h5>
             <br>
             </div>
 
@@ -60,15 +60,15 @@
             <!-- Table -->
         <table class="table">
         </table>
-            <tr><td><strong>{{ you.user.username }}</strong> has received {{ stats.attack }} attack points </td></tr>
+            <tr><td><strong id="battle">{{ you.user.username }}</strong> has received {{ stats.attack }} attack points </td></tr>
             <br>
-            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.deffence }} defence points </td></tr>
+            <tr><br><td id="battle"><strong>{{ you.user.username }}</strong> has received {{ stats.deffence }} defence points </td></tr>
             <br>
-            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.strength }} strength points </td></tr>
+            <tr><br><td id="battle"><strong>{{ you.user.username }}</strong> has received {{ stats.strength }} strength points </td></tr>
             <br>
-            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.agility }} agility points </td></tr>
+            <tr><br><td id="battle"><strong>{{ you.user.username }}</strong> has received {{ stats.agility }} agility points </td></tr>
             <br>
-            <tr><br><td><strong>{{ you.user.username }}</strong> has received {{ stats.points }} points </td></tr>
+            <tr><br><td id="battle"><strong>{{ you.user.username }}</strong> has received {{ stats.points }} points </td></tr>
             <br>
         </table>
     </div>
@@ -80,26 +80,24 @@
 
 
 
-    <div class="col-xs-4 col-xs-offset-4">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
         {% for round in rounds %}
         <div class="panel panel-warning">
             <!-- Default panel contents -->
-            <div class="panel-heading">Round {{ round.roundN }}</div>
-            <div class="panel-body">
+            <div class="panel-heading" id="battle">Round {{ round.roundN }}</div>
+            <div class="panel-body" id="battle">
             </div>
 
         <!-- Table -->
         <table class="table">
-            <tr><td>{{ you.user.username }}  hits {{opponent.user.username}}</td><td>{{opponent.user.username}} receives {{ round.youDamage }} damage </td></tr>
-            <tr><td>{{opponent.user.username}} hits {{ you.user.username }}</td><td>{{ you.user.username }} receives {{ round.opponentDamage }} damage </td></tr>
-            <tr><td>{{ you.user.username }}  critically hits {{opponent.user.username}}</td><td>{{opponent.user.username}} receives critical <strong>{{ round.youCritical }} damage</strong> </td></tr>
-            <tr><td>{{opponent.user.username}} critically hits {{ you.user.username }}</td><td>{{ you.user.username }} receives critical <strong>{{ round.opponentCritical }} damage</strong> </td></tr>
-            <tr><td>{{ you.user.username }} health after {{ round.roundN }} round: {{ round.youHealth }}</td><td>{{ opponent.user.username }} health after {{ round.roundN }} round: {{ round.opponentHealth }}</td></tr>
+            <tr><td id="battle">{{ you.user.username }}  hits {{opponent.user.username}}</td><td id="battle">{{opponent.user.username}} receives {{ round.youDamage }} damage </td></tr>
+            <tr><td id="battle">{{opponent.user.username}} hits {{ you.user.username }}</td><td id="battle">{{ you.user.username }} receives {{ round.opponentDamage }} damage </td></tr>
+            <tr><td id="battle">{{ you.user.username }}  critically hits {{opponent.user.username}}</td><td id="battle">{{opponent.user.username}} receives critical <strong>{{ round.youCritical }} damage</strong> </td></tr>
+            <tr><td id="battle">{{opponent.user.username}} critically hits {{ you.user.username }}</td><td id="battle">{{ you.user.username }} receives critical <strong>{{ round.opponentCritical }} damage</strong> </td></tr>
+            <tr><td id="battle">{{ you.user.username }} health after {{ round.roundN }} round: {{ round.youHealth }}</td><td id="battle">{{ opponent.user.username }} health after {{ round.roundN }} round: {{ round.opponentHealth }}</td></tr>
         </table>
     </div>
         {% endfor %}
     </div>
 
 {% endblock %}
-
-
