@@ -46,15 +46,16 @@ class AvatarItemTests(TestCase):
         self.assertTrue(avatar_item1.equiped)
         self.assertTrue(avatar_item2.equiped)
         
-    #def test_only_one_avatar_item_type_equiped(self):
+    def test_only_one_avatar_item_type_equiped(self):
         ''' 
         Testing that a user can only have one item of a particular type equipped
         '''
-        #item1 = add_item('sword', 50, 'sowrdA', 20, 10) 
-        #item2 = add_item('sword', 50, 'sowrdB', 20, 10)
-        #avatar_item1 = add_avatar_item(self.avatar, item1, True)
-        #avatar_item2 = add_avatar_item(self.avatar, item2, True)
-        #self.assertFalse(avatar_item1.equiped)
+        item1 = add_item('sword', 50, 'sowrdA', 20, 10) 
+        item2 = add_item('sword', 50, 'sowrdB', 20, 10)
+        avatar_item1 = add_avatar_item(self.avatar, item1, True)
+        avatar_item2 = add_avatar_item(self.avatar, item2, True)
+        avatar_item1 = AvatarItem.objects.get(avatar = self.avatar, item = item1)
+        self.assertFalse(avatar_item1.equiped)
         
     def test_correct_itemType_assignment(self):
         item1 = add_item('boots', 100, 'SomeBoots', 10, 20)
