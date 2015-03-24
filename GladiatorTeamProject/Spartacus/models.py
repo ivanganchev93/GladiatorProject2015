@@ -15,7 +15,7 @@ class Avatar(models.Model):
     intelligence = models.IntegerField(default = 10)
 
     # Fight fields
-    #isFighting = models.BooleanField(default=False)
+    isFighting = models.BooleanField(default=False)
     #fightStartedAt = models.DateField(default=datetime.now())
     victories = models.IntegerField(default = 0)
     points = models.IntegerField(default = 0) # for ranking...every time a gladiator fights get some amount of points

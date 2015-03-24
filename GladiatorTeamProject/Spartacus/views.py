@@ -127,6 +127,8 @@ def arena(request):
         try:
             opponents = Avatar.objects.exclude(user = user).order_by('-points')
             you = Avatar.objects.get(user = user)
+            you.isFighting = False
+            you.save()
             #your relevant opponents are the one with similar points to you
             relevant_opponents = []
             for opponent in opponents:
@@ -145,27 +147,36 @@ def arena(request):
 def battle(request, opponent):
     context_dict = {}
 
+    you = Avatar.objects.get(user = request.user)
     #set start of fight
     request.session["fightStartedAt"] = str(datetime.now())
 
-    try:
-        you = Avatar.objects.get(user = request.user)
-        opposing_user = User.objects.get(username = opponent)
-        opponent = Avatar.objects.get(user = opposing_user)
-        fightData = fight(you, opponent)
+    #First time
+    if not you.isFighting:
 
-        victory = fightData['result']
-        stats = fightData["stats"]
+        try:
 
-        context_dict["stats"]=stats
-        context_dict['you'] = you
-        context_dict['opponent'] = opponent
-        context_dict['victory'] = victory
-        context_dict['rounds'] = fightData['rounds']
-    except:
-        print "Query fail battle"
+            opposing_user = User.objects.get(username = opponent)
+            opponent = Avatar.objects.get(user = opposing_user)
+            fightData = fight(you, opponent)
+
+            victory = fightData['result']
+            stats = fightData["stats"]
+
+            context_dict["stats"]=stats
+            context_dict['you'] = you
+            context_dict['opponent'] = opponent
+            context_dict['victory'] = victory
+            context_dict['rounds'] = fightData['rounds']
+            you.isFighting=True
+            you.save()
+            return render(request, 'Spartacus/battle.html', context_dict)
+        except:
+            print "Query fail battle"
+            return HttpResponseRedirect('/Spartacus/arena')
+    else:
+
         return HttpResponseRedirect('/Spartacus/arena')
-    return render(request, 'Spartacus/battle.html', context_dict)
 
 @login_required
 def market(request):
@@ -349,3 +360,12 @@ def sell_item(request):
     context_dict = getItems(avatar)
 
     return render(request, 'Spartacus/item_list_market.html', context_dict)
+
+@login_required
+def gold(request):
+    avatar = Avatar.objects.get(user = request.user)
+
+    context_dict = {}
+    context_dict["cash"]= avatar.cash
+
+    return render(request, 'Spartacus/update_gold.html', context_dict)

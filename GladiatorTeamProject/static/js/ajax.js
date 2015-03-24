@@ -16,16 +16,26 @@ $(document).ready(function() {
 
     $('.unequip_market').click(function(){
         var itemid = $(this).attr("data-itemid");
-        $.get("/Spartacus/unequip_item_market/", {item_id: itemid}, function(data){
+        $.get("/Spartacus/unequip_item_market/", {item_id: itemid}, function(data) {
             $('#all_items_market').html(data);
+
         });
     });
 
     $('.sell').click(function(){
         var itemid = $(this).attr("data-itemid");
+        
         $.get("/Spartacus/sell_item/", {item_id: itemid}, function(data){
             $('#all_items_market').html(data);
+            console.log("sell ITEM");
+            $.get("/Spartacus/gold/", {}, function(data){
+                $('#gold').html(data);
+            });
+            console.log("GOLD ");
         });
     });
+
+
+
 
 });
