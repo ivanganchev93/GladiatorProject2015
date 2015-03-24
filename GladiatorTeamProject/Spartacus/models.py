@@ -6,7 +6,7 @@ class Avatar(models.Model):
     user = models.OneToOneField(User)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
-    cash = models.IntegerField(default = 1000)
+    cash = models.IntegerField(default = 100)
     attack = models.IntegerField(default= 10)
     deffence = models.IntegerField(default= 10)
 

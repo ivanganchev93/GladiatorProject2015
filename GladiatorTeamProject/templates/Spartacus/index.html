@@ -8,8 +8,9 @@
 <div class = "container">
     <div align = "center">
         {% if user.is_authenticated %}
-        <h1> Welcome to Spartacus</h1>
+        <h1> Hello {{ user }}. Welcome to Spartacus</h1>
         {% else %}
+        <h1>Welcome to Spartacus</h1>
         {% endif %}
     </div>
 </div>

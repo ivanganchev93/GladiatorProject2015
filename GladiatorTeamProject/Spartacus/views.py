@@ -55,8 +55,7 @@ def add_profile(request):
             if 'picture' in request.FILES:
                 f.picture = request.FILES['picture']
             f.save()
-
-            return HttpResponseRedirect('/Spartacus/')
+            return avatar_view(request, request.user)
         else:
             print profile_form.errors
 
@@ -79,7 +78,7 @@ def avatar_view(request, name):
     if fightStartedAt and fightStartedAt!=0:
         fightStartedAtTime = datetime.strptime(fightStartedAt[:-7], "%Y-%m-%d %H:%M:%S")
         time_elapsed = (datetime.now() - fightStartedAtTime).seconds
-        waitTime = 10
+        waitTime = 20
         if time_elapsed < waitTime:
             timePassed = False
         else:
@@ -117,7 +116,7 @@ def arena(request):
     if fightStartedAt and fightStartedAt!=0:
         fightStartedAtTime = datetime.strptime(fightStartedAt[:-7], "%Y-%m-%d %H:%M:%S")
         time_elapsed = (datetime.now() - fightStartedAtTime).seconds
-        waitTime = 10
+        waitTime = 20
         if time_elapsed < waitTime:
             timePassed = False
         else:
@@ -294,7 +293,7 @@ def questing(request):
         last_played_time = datetime.strptime(last_played[:-7], "%Y-%m-%d %H:%M:%S")
         time_elapsed = (datetime.now() - last_played_time).seconds
         #time before quests are available again
-        wait_time = 5
+        wait_time = 20
         if time_elapsed < wait_time:
             time_passed = False
         context_dict['time_left'] =  wait_time - time_elapsed

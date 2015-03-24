@@ -110,12 +110,17 @@ def fight(you, opponent):
         #defeat
         elif youHealth - opponentHealth < -50:
             #updating stats
-            you.attack += 1
-            you.deffence += 1
-            you.points += 20
+
             you.save()
             opponent.victories += 1
             opponent.points += 50
+            cashWon = you.cash / 10.0  # 10% of the opponent's cash
+            opponent.cash += cashWon + 30
+            opponent.attack += 2
+            opponent.deffence += 2
+            opponent.strength += 2
+            opponent.agility += 2
+            opponent.intelligence += 1
             opponent.save()
 
             fightData["stats"]['result']=-1
@@ -133,6 +138,11 @@ def fight(you, opponent):
             you.strength += 1
             you.agility += 1
             you.points += 30
+
+            opponent.attack += 1
+            opponent.deffence += 1
+            opponent.strength += 1
+            opponent.agility += 1
             opponent.points += 30
             opponent.save()
             you.save()
