@@ -97,8 +97,8 @@ class FightFunctionTest(TestCase):
                 self.assertEquals(initial_attack+1, self.avatar1.attack)
             
             else:
-                self.assertEquals(initial_deffence+1, self.avatar1.deffence)
-                self.assertEquals(initial_attack+1, self.avatar1.attack)
+                self.assertEquals(initial_deffence, self.avatar1.deffence)
+                self.assertEquals(initial_attack, self.avatar1.attack)
                 
 class GetItemsTest(TestCase):
 
