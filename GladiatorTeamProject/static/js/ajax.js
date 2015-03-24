@@ -27,5 +27,5 @@ $(document).ready(function() {
             $('#all_items_market').html(data);
         });
     });
-	
+
 });

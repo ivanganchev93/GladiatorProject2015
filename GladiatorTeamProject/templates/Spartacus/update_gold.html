@@ -1,0 +1,7 @@
+{% load staticfiles %}
+
+{% block gold %}
+{% if user.is_authenticated %}
+   {{ user.avatar.cash }} <img  src="{% static 'images/gold.jpg' %}" width = "20" height = "20"/>
+{% endif %}
+{% endblock %}

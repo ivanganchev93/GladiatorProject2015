@@ -4,11 +4,9 @@
 
 <div id="all_items_market">
     {% if bought == "Insufficient cash" %}
-    You don`t have enough money.
+    <div align="center"><b><font color="red"><p>You don`t have enough money.</p></font></b></div>
     {% elif bought == "full inventory" or full == True %}
-    Your inventory is already full.
-    {% elif bought %}
-    You successfuly bought {{ bought }}.
+    <div align="center"><b><font color="red"><p>Your inventory is already full.</p></font></b></div>
     {% endif %}
     <div class="row">
         <div class="col-xs-11 col-xs-offset-1" style="border: 2px solid black;">
