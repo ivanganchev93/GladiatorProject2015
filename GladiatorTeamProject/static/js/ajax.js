@@ -24,14 +24,13 @@ $(document).ready(function() {
 
     $('.sell').click(function(){
         var itemid = $(this).attr("data-itemid");
-        
+
         $.get("/Spartacus/sell_item/", {item_id: itemid}, function(data){
             $('#all_items_market').html(data);
             console.log("sell ITEM");
-            $.get("/Spartacus/gold/", {}, function(data){
+            $.get("/Spartacus/gold/",{item_id: itemid}, function(data){
                 $('#gold').html(data);
             });
-            console.log("GOLD ");
         });
     });
 
