@@ -16,10 +16,16 @@ class Migration(migrations.Migration):
             name='Avatar',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('picture', models.ImageField(upload_to=b'profile_images', blank=True)),
+                ('cash', models.IntegerField(default=100)),
                 ('attack', models.IntegerField(default=10)),
                 ('deffence', models.IntegerField(default=10)),
                 ('strength', models.IntegerField(default=10)),
                 ('agility', models.IntegerField(default=10)),
+                ('intelligence', models.IntegerField(default=10)),
+                ('isFighting', models.BooleanField(default=False)),
+                ('victories', models.IntegerField(default=0)),
+                ('points', models.IntegerField(default=0)),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -31,6 +37,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('equiped', models.BooleanField(default=False)),
+                ('avatar', models.ForeignKey(to='Spartacus.Avatar')),
             ],
             options={
             },
@@ -40,11 +47,12 @@ class Migration(migrations.Migration):
             name='Item',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=128)),
+                ('price', models.IntegerField(default=0)),
+                ('itemType', models.CharField(default=b'sword', max_length=128, choices=[(b'sword', b'sword'), (b'shield', b'shield'), (b'armor', b'armor'), (b'helmet', b'helmet'), (b'boots', b'boots')])),
+                ('name', models.CharField(unique=True, max_length=128)),
+                ('picture', models.ImageField(upload_to=b'item_images', blank=True)),
                 ('attack', models.IntegerField(default=10)),
                 ('deffence', models.IntegerField(default=10)),
-                ('strength', models.IntegerField(default=10)),
-                ('agility', models.IntegerField(default=10)),
             ],
             options={
             },
@@ -53,13 +61,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='avataritem',
             name='item',
-            field=models.OneToOneField(to='Spartacus.Item'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='avataritem',
-            name='user',
-            field=models.ForeignKey(to='Spartacus.Avatar'),
+            field=models.ForeignKey(to='Spartacus.Item'),
             preserve_default=True,
         ),
     ]

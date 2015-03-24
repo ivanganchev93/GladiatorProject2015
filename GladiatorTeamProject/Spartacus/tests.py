@@ -80,7 +80,13 @@ class FightFunctionTest(TestCase):
             initial_intelligence = self.avatar1.intelligence
             initial_deffence = self.avatar1.deffence
             initial_attack = self.avatar1.attack
-        
+
+            initial_strength2 = self.avatar2.strength
+            initial_agility2 = self.avatar2.agility
+            initial_intelligence2 = self.avatar2.intelligence
+            initial_deffence2 = self.avatar2.deffence
+            initial_attack2 = self.avatar2.attack
+
             fightData = fight(self.avatar1, self.avatar2)
             if fightData['result'] == 1:
                 self.assertEquals(initial_strength+2, self.avatar1.strength)
@@ -88,17 +94,26 @@ class FightFunctionTest(TestCase):
                 self.assertEquals(initial_intelligence+1, self.avatar1.intelligence)
                 self.assertEquals(initial_deffence+2, self.avatar1.deffence)
                 self.assertEquals(initial_attack+2, self.avatar1.attack)
-            
+
             elif fightData['result'] == 0:
                 self.assertEquals(initial_strength+1, self.avatar1.strength)
                 self.assertEquals(initial_agility+1, self.avatar1.agility)
                 self.assertEquals(initial_intelligence, self.avatar1.intelligence)
                 self.assertEquals(initial_deffence+1, self.avatar1.deffence)
                 self.assertEquals(initial_attack+1, self.avatar1.attack)
-            
+
+                self.assertEquals(initial_strength2+1, self.avatar2.strength)
+                self.assertEquals(initial_agility2+1, self.avatar2.agility)
+                self.assertEquals(initial_intelligence2, self.avatar2.intelligence)
+                self.assertEquals(initial_deffence2+1, self.avatar2.deffence)
+                self.assertEquals(initial_attack2+1, self.avatar2.attack)
+
             else:
-                self.assertEquals(initial_deffence, self.avatar1.deffence)
-                self.assertEquals(initial_attack, self.avatar1.attack)
+                self.assertEquals(initial_strength2+2, self.avatar2.strength)
+                self.assertEquals(initial_agility2+2, self.avatar2.agility)
+                self.assertEquals(initial_intelligence2+1, self.avatar2.intelligence)
+                self.assertEquals(initial_deffence2+2, self.avatar2.deffence)
+                self.assertEquals(initial_attack2+2, self.avatar2.attack)
                 
 class GetItemsTest(TestCase):
 
