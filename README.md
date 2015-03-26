@@ -16,26 +16,26 @@ The app can be found [Here] (http://spartacus.pythonanywhere.com)
 
 ### Installation instructions
 
-- First: Clone the repository
-    git clone https://github.com/2087690alexCh/GladiatorTeamProject.git
+- First: Clone the repository<br/>
+    git clone https://github.com/2087690alexCh/GladiatorTeamProject.git<br/>
     
-- Second: Create a virtual environment for the app and switch to it
-    $ mkvirtualenv Spartacus
-    $ workon Spartacus
+- Second: Create a virtual environment for the app and switch to it<br/>
+    $ mkvirtualenv Spartacus<br/>
+    $ workon Spartacus<br/>
     
-- Third: Install the dependencies
-    $ pip install -r requirements.txt
+- Third: Install the dependencies<br/>
+    $ pip install -r requirements.txt<br/>
     
-- Forth: Run the population script and launch the server
-    $ python populate_spartacus
-    $ python manage.py runserver
+- Forth: Run the population script and launch the server<br/>
+    $ python populate_spartacus<br/>
+    $ python manage.py runserver<br/>
     
-- Fifth: Login
-    Type the following in your web browser: 127.0.0.1:8000/Spartacus
-    Register or login with the test account - username: test password: test
+- Fifth: Login<br/>
+    Type the following in your web browser: 127.0.0.1:8000/Spartacus<br/>
+    Register or login with the test account - username: test password: test<br/>
   
-- Finally: Have Fun!
-    This part is mandatory
+- Finally: Have Fun!<br/>
+    This part is mandatory<br/>
 
 ### Screenshots
 
