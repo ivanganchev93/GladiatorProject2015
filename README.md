@@ -15,4 +15,12 @@ The app can be found [Here] (http://spartacus.pythonanywhere.com)
 - Quests - another way for earning gold and stats.
 
 ### Screenshots
-<img src = "GladiatorTeamProject/static/images/screenshot1.jpg">
+
+#### Avatar view
+<img src = "GladiatorTeamProject/static/images/screenshot1.jpg" width= 600 height= 400>
+
+#### Quests
+<img src = "GladiatorTeamProject/static/images/screenshot2.jpg" width= 600 height= 400>
+
+#### Battle
+<img src = "GladiatorTeamProject/static/images/screenshot3.jpg" width= 600 height= 400>
