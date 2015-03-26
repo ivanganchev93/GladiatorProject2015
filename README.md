@@ -27,7 +27,7 @@ The app can be found [Here] (http://spartacus.pythonanywhere.com)
     $ pip install -r requirements.txt<br/>
     
 - Forth: Run the population script and launch the server<br/>
-    $ python populate_spartacus<br/>
+    $ python populate_spartacus.py<br/>
     $ python manage.py runserver<br/>
     
 - Fifth: Login<br/>
