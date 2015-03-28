@@ -28,6 +28,7 @@ The app can be found [Here] (http://spartacus.pythonanywhere.com)
     pip install -r requirements.txt<br/>
     
 - Forth: Make the migrations, migrate, run the population script and launch the server<br/>
+    cd GladiatorTeamProject<br/>
     python manage.py makemigrations Spartacus<br/>
     python manage.py migrate<br/>
     python populate_spartacus.py<br/>
