@@ -20,18 +20,18 @@ The app can be found [Here] (http://spartacus.pythonanywhere.com)
     git clone https://github.com/2087690alexCh/GladiatorTeamProject.git<br/>
     
 - Second: Go to ./GladiatorTeamProject, create a virtual environment for the app and switch to it<br/>
-    $ cd GladiatorTeamProject
-    $ mkvirtualenv Spartacus<br/>
-    $ workon Spartacus<br/>
+    cd GladiatorTeamProject
+    mkvirtualenv Spartacus<br/>
+    workon Spartacus<br/>
     
 - Third: Install the dependencies<br/>
-    $ pip install -r requirements.txt<br/>
+    pip install -r requirements.txt<br/>
     
-- Forth: Run the population script and launch the server<br/>
-    $ python manage.py makemigrations Spartacus
-    $ python manage.py migrate
-    $ python populate_spartacus.py<br/>
-    $ python manage.py runserver<br/>
+- Forth: Make the migrations, migrate, run the population script and launch the server<br/>
+    python manage.py makemigrations Spartacus
+    python manage.py migrate
+    python populate_spartacus.py<br/>
+    python manage.py runserver<br/>
     
 - Fifth: Login<br/>
     Type the following in your web browser: 127.0.0.1:8000/Spartacus<br/>
