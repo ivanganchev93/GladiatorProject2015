@@ -1,5 +1,8 @@
 {% load staticfiles %}
 
+/* most table layout is fixed and  information is hidden if size is too small*/
+/* of some tables need other settings id's were used to change them*/
+
 table{
 	table-layout: fixed;
 }
@@ -12,6 +15,16 @@ table,th, td, tr{
 	text-overflow: ellipsis;
 		
 }
+
+td#battle {
+	text-align: center;
+	white-space: initial; 
+	overflow: initial;
+	text-overflow: initial;
+	
+}
+
+/* button and input styles*/
 button {
 	border: 1px solid black;
 	background-color: gray;
@@ -23,6 +36,9 @@ input {
 	color: white;
 	
 }
+
+/* div styles, most dives have diferent styles for different templates*/
+
 div.div1 { 
 width:600px; height:300px;
 
@@ -31,22 +47,19 @@ div.div2 {
 width:700px; height:250px; margin:10px 250px; opacity:0.8; filter:alpha(opacity=40); 
 
 }
+
+/* used to style the layout of avatar and market templates to give distance between objects*/
 div#split{
 	height: 25px;
 
 }
 
+/* div used for transparent black background*/
 div.container {
     background: rgba(15,15,15, 0.8)!important;
 }
-
-td#battle {
-	text-align: center;
-	white-space: initial; 
-	overflow: initial;
-	text-overflow: initial;
-	
-}
+/* div allowing for all the information to be shown in the battle tables without being hidden*/
+/* if the size of the table is too small */
 div#battle {
 	text-align: center;
 	white-space: initial; 
@@ -55,7 +68,7 @@ div#battle {
 	
 }
 
-
+/* background image settings*/
 .wrapper{background: url("/images/index.jpg") no-repeat   center center fixed;
 -webkit-background-size: cover;
 -moz-background-size: cover;
