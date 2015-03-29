@@ -10,6 +10,7 @@ class Avatar(models.Model):
     attack = models.IntegerField(default= 10)
     deffence = models.IntegerField(default= 10)
 
+    # Stats fields
     strength = models.IntegerField(default= 10)
     agility = models.IntegerField(default= 10)
     intelligence = models.IntegerField(default = 10)
@@ -44,6 +45,7 @@ class Item(models.Model):
     def __unicode__(self):
         return self.name
 
+# Items belonging to the avatar
 class AvatarItem(models.Model):
     item = models.ForeignKey(Item)
     avatar = models.ForeignKey(Avatar)

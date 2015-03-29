@@ -1,7 +1,17 @@
 from Spartacus.models import User, Avatar, AvatarItem, Item
 from random import randint
 
+
 def fight(you, opponent):
+    """
+
+    :param you: the database object holding your data
+    :param opponent: the database object holding opponents data
+    :return: fightData including rounds data, statistics points earned and result -
+        -1 : lost
+        0 : tie
+        1 : victory
+    """
     fightData={}
     rounds=[]
     try:
@@ -23,7 +33,7 @@ def fight(you, opponent):
             opponentAttack += item.item.attack
             opponentDeffence += item.item.deffence
 
-        # both gladiators start the fight with 100 health
+        # health of the gladiators is calculated
         youHealth = you.strength*25
         opponentHealth = you.strength*25
 
@@ -37,7 +47,7 @@ def fight(you, opponent):
         youDoubleHitChance = (youHitChance * (you.agility / doubleHitRatio))
         opponentDoubleHitChance = (opponentHitChance * (opponent.agility / doubleHitRatio))
 
-        # damage
+        # damage of opponent and you
         if(youAttack > opponentDeffence):
             youDamageFactor = youAttack - opponentDeffence
         else:
@@ -49,12 +59,15 @@ def fight(you, opponent):
             opponentDamageFactor = 5
 
         round = 1
+
+        # fight rounds:
         while youHealth > 0 and opponentHealth > 0 and round <= 20:
             youDamage = 0
             youCritical = 0
             opponentDamage = 0
             opponentCritical = 0
 
+            # work out if you/opponent will hit opponent/you and what damage will be caused
             if randint(0,100) <= int(youHitChance):
                 youDamage = youDamageFactor * ((randint(85,125))/100.0)
                 opponentHealth -= youDamage

@@ -6,14 +6,37 @@ from Spartacus.views import getItems
 from django.core.urlresolvers import reverse
 
 def add_user(username, password):
+    """
+
+    :param username: username
+    :param password: password
+    :return: user
+    Checks if a user can be created
+    """
     user = User.objects.create_user(username=username, password = password)
     return user
     
 def add_avatar(user):
+    """
+
+    :param user: user
+    :return: avatar
+    Tests if an avatar can be created
+    """
     avatar = Avatar.objects.get_or_create(user = user)[0]
     return avatar
     
 def add_item(itemType, price, name, attack, defence):
+    """
+
+    :param itemType: type of item
+    :param price: price
+    :param name: name
+    :param attack: attack points
+    :param defence: defence points
+    :return: item
+    Tests if an item can be got or created if not existing
+    """
     picture =  'item_images/sword2.jpg'
     item = Item.objects.get_or_create(name = name, picture = picture)[0]
     item.itemType = itemType
@@ -24,10 +47,18 @@ def add_item(itemType, price, name, attack, defence):
     return item
     
 def add_avatar_item(avatar, item, equiped):
-     avatar_item = AvatarItem.objects.get_or_create(avatar = avatar, item = item)[0]
-     avatar_item.equiped = equiped
-     avatar_item.save()
-     return avatar_item
+    """
+
+    :param avatar: avatar an item is added to
+    :param item: the added item
+    :param equiped: equped or not
+    :return: avatar item
+    Get or Create avatar item. Set equipped parameter and save
+    """
+    avatar_item = AvatarItem.objects.get_or_create(avatar = avatar, item = item)[0]
+    avatar_item.equiped = equiped
+    avatar_item.save()
+    return avatar_item
      
 class AvatarItemTests(TestCase):
 
@@ -65,6 +96,7 @@ class AvatarItemTests(TestCase):
 class FightFunctionTest(TestCase):
 
     def setUp(self):
+
         self.user1 = add_user('Maximus', 'Max')
         self.avatar1 = add_avatar(self.user1)
         self.user2 = add_user('Minimus', 'Min')
@@ -122,6 +154,10 @@ class GetItemsTest(TestCase):
         self.avatar = add_avatar(self.user) 
         
     def test_getItems_function(self):
+        """
+        Add items to avatar and checks if they are added
+        :return:
+        """
         item1 = add_item('sword', 50, 'sowrdA', 20, 10) 
         item2 = add_item('shield', 50, 'shieldB', 20, 10)
         item3 = add_item('boots', 50, 'bootsC', 20, 10)
@@ -135,7 +171,9 @@ class GetItemsTest(TestCase):
         self.assertTrue(avatar_item3 in dict['inventory_items'] and avatar_item4 in dict['inventory_items'])
         
 class ViewTest(TestCase):
-    
+    """
+    Test several views of the project
+    """
     def setUp(self):
         self.user = add_user('Maximus', 'Max')
         self.avatar = add_avatar(self.user)
