@@ -17,7 +17,7 @@ The app can be found [Here] (http://spartacus.pythonanywhere.com)
 ### Installation instructions
 
 - First: Clone the repository<br/>
-    git clone https://github.com/ivanganchev93/GladiatorTeamProject.git<br/>
+    git clone https://github.com/ivanganchev93/GladiatorProject2015.git<br/>
     
 - Second: Go to ./GladiatorTeamProject, create a virtual environment for the app and switch to it<br/>
     cd GladiatorTeamProject<br/>
